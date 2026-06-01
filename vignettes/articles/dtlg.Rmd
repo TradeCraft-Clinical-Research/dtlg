@@ -1,0 +1,356 @@
+---
+title: "Getting started with dtlg"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with dtlg}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(width = 100)
+```
+
+```{r setup, message = FALSE}
+library(dtlg)
+```
+
+## What dtlg is for
+
+`{dtlg}` builds the summary tables that populate Section 14 of a Clinical
+Study Report (CSR): demographics, adverse event incidence, and laboratory
+summaries. The package covers the tables in the TLG triad; listings and
+graphs are out of scope. Inputs are ADaM-like analysis datasets (ADSL,
+ADAE, ADLB); outputs are tidy `data.table`s ready to render with any
+downstream formatter (`kableExtra`, `gt`, `flextable`, `rtables`, or a Shiny
+widget).
+
+The package began as a response to a specific frustration: Shiny dashboards
+for clinical review needed aggregations fast enough to recompute on user
+input. The reference implementations in `{tern}` and `{rtables}` are
+authoritative but were not designed for the round-trip latency of an
+interactive session. Two design choices follow from that origin:
+
+- The compute backend is `data.table`. Aggregation over populations of
+  $10^5$ to $10^6$ subjects remains interactive. See
+  `vignette("benchmarks")` for comparisons against `{tern}`.
+
+- The output is always a plain `data.table` with a `stats` column and one
+  column per treatment level. There is no bespoke table object, no print
+  method to learn, and no rendering coupled to the computation. Indent
+  strings default to HTML non-breaking spaces (`nbsp()`) so that the same
+  output renders correctly in a Shiny `renderTable()` or `renderDT()`
+  call without re-formatting.
+
+This article walks through the user-facing API by reproducing three
+representative tables.
+
+## Example data
+
+The package re-exports four ADaM-shaped datasets from `random.cdisc.data` for
+illustration and testing:
+
+| Object | Description                                                  |
+|--------|--------------------------------------------------------------|
+| `adsl` | Subject-level analysis dataset (one row per subject).        |
+| `adae` | Adverse events analysis dataset.                             |
+| `aesi` | `adae` filtered to analysis records, with derived AESI flags.|
+| `adlb` | Laboratory measurements in BDS format.                       |
+
+```{r}
+adsl[1:3, c("USUBJID", "ARM", "AGE", "SEX", "RACE")]
+```
+
+## A first table: demographics
+
+`summary_table()` is the high-level entry point. It dispatches on the type of
+each `target` variable: numeric columns are summarised with `calc_desc()`
+(n, mean (SD), median, min/max, missing); categorical columns are summarised
+with `calc_counts()` (n (%) per level, denominator from `.total_dt`).
+
+The `indent` argument defaults to `nbsp(n = 4L)` --- four HTML non-breaking
+spaces --- which renders correctly in Shiny and any HTML formatter passed
+`escape = FALSE`. For console inspection, pass `indent = "  "` so the output
+is legible without HTML rendering:
+
+```{r}
+dmg_vars <- c("AGE", "SEX", "RACE", "BMRKR1")
+dmg_lbls <- c("Age (yr)", "Sex", "Race", "Biomarker 1")
+
+dm_table <- summary_table(
+  adsl,
+  target      = dmg_vars,
+  target_name = dmg_lbls,
+  treat       = "ARM",
+  indent      = "  "
+)
+
+dm_table
+```
+
+The first column carries the variable heading and the indented statistic
+labels. The remaining columns are the levels of `treat`. Reorder columns
+explicitly with `treat_order`:
+
+```{r}
+summary_table(
+  adsl,
+  target      = "AGE",
+  target_name = "Age (yr)",
+  treat       = "ARM",
+  treat_order = c("B: Placebo", "A: Drug X", "C: Combination"),
+  indent      = "  "
+)
+```
+
+## Building blocks for event tables
+
+Safety tables are constructed from small, composable primitives. Each
+returns a one-element list wrapping a `data.table`; `merge_table_lists()`
+unwraps and row-binds them. The list wrapping exists so that mixed-shape
+intermediates can be assembled without intermediate casting.
+
+| Helper                | Counts                                                |
+|-----------------------|-------------------------------------------------------|
+| `event_count()`       | Patients matching a predicate (e.g. `DTHFL == 'Y'`).  |
+| `total_events()`      | Records, not patients (e.g. total AEs).               |
+| `multi_event_true()`  | Patients flagged across many binary indicators.       |
+| `event_count_by()`    | Patients and events nested by a grouping variable.    |
+
+A minimal example. Deaths per arm:
+
+```{r}
+event_count(
+  adsl,
+  patient  = "USUBJID",
+  treat    = "ARM",
+  label    = "Total number of deaths",
+  .filters = "DTHFL == 'Y'"
+)[[1]]
+```
+
+`.filters` is a character vector of unevaluated R expressions; they are
+parsed and applied in the frame of `dt`. Passing multiple expressions
+combines them with logical AND.
+
+## Composing AET01 from primitives
+
+The AET01 table is the canonical safety overview. The high-level
+`AET01_table()` wraps the composition shown below; understanding the
+primitives makes the result auditable.
+
+```{r}
+aesi_vars <- c(
+  "FATAL", "SER", "SERWD", "SERDSM", "RELSER",
+  "WD", "DSM", "REL", "RELWD", "RELDSM", "SEV"
+)
+
+deaths <- event_count(
+  adsl,
+  patient  = "USUBJID",
+  treat    = "ARM",
+  label    = "Total number of deaths",
+  .filters = "DTHFL == 'Y'"
+)
+
+withdrawals <- event_count(
+  adsl,
+  patient  = "USUBJID",
+  treat    = "ARM",
+  label    = "Total number of patients withdrawn due to an AE",
+  .filters = "DCSREAS == 'ADVERSE EVENT'"
+)
+
+patients_any_ae <- event_count(
+  aesi,
+  patient   = "USUBJID",
+  treat     = "ARM",
+  label     = "Total number of patients with at least one AE",
+  .total_dt = adsl
+)
+
+total_ae <- total_events(
+  aesi,
+  treat = "ARM",
+  label = "Total number of AEs"
+)
+
+aesi_block <- multi_event_true(
+  aesi,
+  event_vars = aesi_vars,
+  patient    = "USUBJID",
+  treat      = "ARM",
+  heading    = "Total number of patients with at least one",
+  .total_dt  = adsl,
+  indent     = "  "
+)
+
+aet01 <- merge_table_lists(list(
+  patients_any_ae,
+  total_ae,
+  deaths,
+  withdrawals,
+  aesi_block
+))
+
+aet01
+```
+
+Two details worth noting. First, `.total_dt = adsl` supplies the denominator
+for percentages; without it the denominator is `dt` itself, which silently
+yields the wrong result whenever the analysis dataset is filtered.
+Second, the AESI block uses the `label` attribute of each flag variable for
+row labels when `label` is not supplied explicitly; `with_label()` sets
+that attribute.
+
+The one-liner equivalent is `AET01_table()`:
+
+```{r}
+aet01_oneliner <- AET01_table(
+  adsl        = adsl,
+  adae        = aesi,
+  patient_var = "USUBJID",
+  treat_var   = "ARM",
+  aesi_vars   = aesi_vars
+)
+
+identical(aet01, aet01_oneliner)
+```
+
+## AE incidence by SOC and PT
+
+`AET02_table()` produces the System Organ Class / Preferred Term breakdown,
+combining `event_count()`, `total_events()`, and `event_count_by()`:
+
+```{r}
+aet02 <- AET02_table(
+  adsl    = adsl,
+  adae    = aesi,
+  patient = "USUBJID",
+  treat   = "ARM",
+  target  = "AEDECOD",
+  rows_by = "AEBODSYS",
+  indent  = "  "
+)
+
+head(aet02, 12)
+```
+
+## Longitudinal laboratory summaries
+
+For BDS-shaped data such as `adlb`, `summary_table_by()` groups rows by one
+or more nesting variables, and `summary_table_by_targets()` summarises two
+target columns side by side --- the typical layout for value and
+change-from-baseline:
+
+```{r}
+adlb_post <- adlb[adlb$AVISIT != "SCREENING", ]
+
+lb_table <- summary_table_by_targets(
+  dt      = adlb_post,
+  target  = c("AVAL", "CHG"),
+  treat   = "ARM",
+  rows_by = c("PARAM", "AVISIT"),
+  indent  = "  "
+)
+
+head(lb_table, 8)
+```
+
+The output column names are suffixed with `.AVAL` and `.CHG` so the two
+blocks remain distinguishable after the column-bind.
+
+## Output is a plain data.table
+
+Every constructor returns a `data.table`. Rendering is the caller's choice.
+Because the default indent and the formatted percentage strings contain
+HTML entities (`&nbsp;`), pass `escape = FALSE` (or the equivalent) to the
+renderer so the indentation is honoured:
+
+```{r, eval = requireNamespace("kableExtra", quietly = TRUE)}
+dm_html <- summary_table(
+  adsl,
+  target      = dmg_vars,
+  target_name = dmg_lbls,
+  treat       = "ARM"
+)
+
+dm_html |>
+  kableExtra::kable(format = "html", escape = FALSE) |>
+  kableExtra::kable_styling(full_width = FALSE)
+```
+
+In a Shiny app the same object goes straight into `renderTable(sanitize.text.function = identity)` or `DT::renderDT(escape = FALSE)`; no
+intermediate conversion is required. This is the use case the package was
+shaped around: a treatment-arm selector or a population filter recomputes
+the table on every input change, and the round-trip stays interactive on
+ADaM datasets at trial-realistic sizes.
+
+For console inspection, `print_dtlg()` wraps `data.table`'s print method with
+left-justified columns and no truncation:
+
+```{r}
+print_dtlg(head(aet01, 5))
+```
+
+## Copy semantics
+
+`{dtlg}` exposes the `data.table` reference-vs-value trade-off explicitly
+rather than silently choosing for the user. Internally, every constructor
+calls `maybe_copy_dt()`, which consults the global option
+`dtlg_dt_copy_semantics`:
+
+- `"reference"` (default): a `data.frame` input is converted in place via
+  `setDT()`. Subsequent operations alias the caller's object. This is fastest
+  and matches `data.table` idioms.
+- `"value"`: inputs are deep-copied. Constructors never mutate the caller's
+  data, at the cost of one allocation per call.
+
+Inspect and switch:
+
+```{r}
+dt_copy_semantics()
+old <- set_dt_copy_semantics("value")
+dt_copy_semantics()
+set_dt_copy_semantics(old)
+```
+
+If you write `{dtlg}` calls inside a function that should preserve
+`data.frame`-like inputs, set `"value"` semantics for the scope. For
+production pipelines on large analysis datasets where the inputs are
+already `data.table`s and not reused downstream, the default is correct
+and avoids redundant allocation.
+
+## Comparison with tern
+
+`{tern}` and `{rtables}` produce the canonical reference output for these
+tables. `{dtlg}` ships thin wrappers --- `tern_summary_table()`,
+`tern_AET01_table()`, `tern_AET02_table()` --- that build the equivalent
+`TableTree` through `{tern}` using the same call signature as the
+`{dtlg}` constructor. `as_dtlg_table()` flattens a `TableTree` to the
+`data.table` shape used in this article. Together they enable structured
+side-by-side checks during validation:
+
+```{r, eval = requireNamespace("tern", quietly = TRUE) && requireNamespace("rtables", quietly = TRUE)}
+tt <- tern_summary_table(
+  adsl,
+  target      = c("AGE", "SEX"),
+  target_name = c("Age (yr)", "Sex"),
+  treat       = "ARM"
+)
+
+as_dtlg_table(tt)
+```
+
+## Where to go next
+
+- `vignette("benchmarks")` --- timing comparisons against `{tern}` on
+  realistic population sizes.
+- The function reference, grouped by responsibility (Statistics, Events,
+  Summary Tables, Clinical Tables, tern interop, Copy semantics).
+- `?aesi` --- documentation of the derived AESI flags used throughout the
+  safety examples.
