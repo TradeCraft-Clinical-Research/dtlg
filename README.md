@@ -1,5 +1,5 @@
 
-# dtlg
+# dtlg <a href="https://AscentSoftware.github.io/dtlg"><img src="man/figures/logo.svg" align="right" height="139" alt="dtlg website" /></a>
 
 <!-- badges: start -->
 

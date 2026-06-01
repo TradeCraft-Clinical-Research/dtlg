@@ -6,6 +6,8 @@
 \alias{dtlg-package}
 \title{dtlg: A Performance-Focused Package for Clinical Trial Tables}
 \description{
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
+
 Create high-performance clinical reporting tables (TLGs) from ADaM-like inputs. The package provides a consistent, programmatic API to generate common tables such as demographics, adverse event incidence, and laboratory summaries, using 'data.table' for fast aggregation over large populations. Functions support flexible target-variable selection, stratification by treatment, and customizable summary statistics, and return tidy, machine-readable results ready to render with downstream table/formatting packages in analysis pipelines.
 }
 \seealso{
@@ -21,11 +23,17 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Ramiro Magno \email{ramiro.morgado@acuityanalytics.com}
   \item Max Ebenezer-Brown \email{max.ebenezer-brown@acuityanalytics.com}
   \item Max Norman
   \item Xinye Li \email{xinye.li@acuityanalytics.com}
   \item Anja Peebles-Brown \email{anna.peebles-brown@acuityanalytics.com}
   \item Ashley Baldry \email{ashley.baldry@acuityanalytics.com}
+}
+
+Other contributors:
+\itemize{
+  \item Acuity Analytics (https://www.acuityanalytics.com/) [copyright holder, funder]
 }
 
 }
