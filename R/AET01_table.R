@@ -70,7 +70,7 @@ AET01_table <- function(adsl,
     dt = adsl,
     patient = patient_var,
     treat = treat_var,
-    label = "Total number of patients withdrawn from study due to an AE",
+    label = "Total number of patients withdrawn due to an AE",
     .filters = "DCSREAS == 'ADVERSE EVENT'"
   )
 
