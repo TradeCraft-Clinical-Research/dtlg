@@ -14,7 +14,9 @@
 
 - **Ramiro Magno**. Author, maintainer.
 
-- **Acuity Analytics**. Copyright holder, funder.  
+- **[![Acuity
+  Analytics](https://raw.githubusercontent.com/AscentSoftware/acuitydown/refs/heads/main/man/figures/Acuity_logo_Colour_RGB.svg)](https://www.acuityanalytics.com)**.
+  Copyright holder, funder.  
   https://www.acuityanalytics.com/
 
 ## Citation
@@ -24,12 +26,12 @@ Source:
 
 Ebenezer-Brown M, Norman M, Li X, Peebles-Brown A, Baldry A, Magno R
 (2026). *dtlg: A Performance-Focused Package for Clinical Trial Tables*.
-R package version 0.1.0, <https://AscentSoftware.github.io/dtlg/>.
+R package version 0.1.1, <https://AscentSoftware.github.io/dtlg/>.
 
     @Manual{,
       title = {dtlg: A Performance-Focused Package for Clinical Trial Tables},
       author = {Max Ebenezer-Brown and Max Norman and Xinye Li and Anja Peebles-Brown and Ashley Baldry and Ramiro Magno},
       year = {2026},
-      note = {R package version 0.1.0},
+      note = {R package version 0.1.1},
       url = {https://AscentSoftware.github.io/dtlg/},
     }

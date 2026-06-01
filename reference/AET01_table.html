@@ -13,7 +13,7 @@ withdrawals, total AEs, and adverse events of special interest (AESIs)."><meta p
 
     <a class="navbar-brand me-2" href="../index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +21,8 @@ withdrawals, total AEs, and adverse events of special interest (AESIs)."><meta p
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/dtlg.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/benchmarks.html">Benchmarks</a></li>
@@ -110,24 +111,24 @@ withdrawals, total AEs, and adverse events of special interest (AESIs).</p>
 <span class="r-in"><span>                <span class="st">"WD"</span>, <span class="st">"DSM"</span>, <span class="st">"REL"</span>, <span class="st">"RELWD"</span>, <span class="st">"RELDSM"</span>, <span class="st">"SEV"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">AET01_summary</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                          stats   A: Drug X</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                         &lt;char&gt;      &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:              Total number of patients with at least one AE 100 (74.6%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                        Total number of AEs         502</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                     Total number of deaths  25 (18.7%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4: Total number of patients withdrawn from study due to an AE    3 (2.2%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                 Total number of patients with at least one            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                      AE with fatal outcome    5 (3.7%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                                                 Serious AE  85 (63.4%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:            Serious AE leading to withdrawal from treatment    6 (4.5%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:       Serious AE leading to dose modification/interruption  36 (26.9%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                                         Related Serious AE  64 (47.8%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                    AE leading to withdrawal from treatment  20 (14.9%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:               AE leading to dose modification/interruption  63 (47.0%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                                 Related AE  86 (64.2%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:            Related AE leading to withdrawal from treatment   10 (7.5%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:       Related AE leading to dose modification/interruption  44 (32.8%)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                          Severe AE (at greatest intensity)  77 (57.5%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      stats   A: Drug X</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                     &lt;char&gt;      &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          Total number of patients with at least one AE 100 (74.6%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                    Total number of AEs         502</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                 Total number of deaths  25 (18.7%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:        Total number of patients withdrawn due to an AE    3 (2.2%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:             Total number of patients with at least one            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                  AE with fatal outcome    5 (3.7%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                                             Serious AE  85 (63.4%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:        Serious AE leading to withdrawal from treatment    6 (4.5%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   Serious AE leading to dose modification/interruption  36 (26.9%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                                     Related Serious AE  64 (47.8%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                AE leading to withdrawal from treatment  20 (14.9%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:           AE leading to dose modification/interruption  63 (47.0%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                             Related AE  86 (64.2%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:        Related AE leading to withdrawal from treatment   10 (7.5%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:   Related AE leading to dose modification/interruption  44 (32.8%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                      Severe AE (at greatest intensity)  77 (57.5%)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     B: Placebo C: Combination</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;         &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1: 98 (73.1%)    103 (78.0%)</span>
@@ -154,7 +155,7 @@ withdrawals, total AEs, and adverse events of special interest (AESIs).</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Max Ebenezer-Brown, Max Norman, Xinye Li, Anja Peebles-Brown, Ashley Baldry, Ramiro Magno, Acuity Analytics.</p>
+  <p>Developed by Max Ebenezer-Brown, Max Norman, Xinye Li, Anja Peebles-Brown, Ashley Baldry, Ramiro Magno, <a href="https://www.acuityanalytics.com" class="external-link"><img src="https://raw.githubusercontent.com/AscentSoftware/acuitydown/refs/heads/main/man/figures/Acuity_logo_Colour_RGB.svg" alt="Acuity Analytics" width="120" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +15,8 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/dtlg.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/benchmarks.html">Benchmarks</a></li>
@@ -35,6 +36,18 @@
       <small>Source: <a href="https://github.com/AscentSoftware/dtlg/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.1" id="dtlg-011">dtlg 0.1.1<a class="anchor" aria-label="anchor" href="#dtlg-011"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-and-behaviour-changes-0-1-1">Bug fixes and behaviour changes<a class="anchor" aria-label="anchor" href="#bug-fixes-and-behaviour-changes-0-1-1"></a></h3>
+<ul><li>
+<code><a href="../reference/AET01_table.html">AET01_table()</a></code>: the row label for AE-related withdrawals has been shortened from “Total number of patients withdrawn from study due to an AE” to “Total number of patients withdrawn due to an AE”, for consistency with the other terse event labels in the same table. Code that matches this label by string equality (e.g. snapshot tests) will need to be updated.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-1-1">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-1-1"></a></h3>
+<ul><li>The README and the “Getting started” article now set a wider print width and display the full AET01 table rather than truncating row labels.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="dtlg-010">dtlg 0.1.0<a class="anchor" aria-label="anchor" href="#dtlg-010"></a></h2><p class="text-muted">CRAN release: 2026-04-29</p>
 <div class="section level3">
@@ -76,7 +89,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Max Ebenezer-Brown, Max Norman, Xinye Li, Anja Peebles-Brown, Ashley Baldry, Ramiro Magno, Acuity Analytics.</p>
+  <p>Developed by Max Ebenezer-Brown, Max Norman, Xinye Li, Anja Peebles-Brown, Ashley Baldry, Ramiro Magno, <a href="https://www.acuityanalytics.com" class="external-link"><img src="https://raw.githubusercontent.com/AscentSoftware/acuitydown/refs/heads/main/man/figures/Acuity_logo_Colour_RGB.svg" alt="Acuity Analytics" width="120" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

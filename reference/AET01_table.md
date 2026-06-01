@@ -66,24 +66,24 @@ AET01_summary <- AET01_table(
                 "WD", "DSM", "REL", "RELWD", "RELDSM", "SEV")
 )
 print(AET01_summary)
-#>                                                          stats   A: Drug X
-#>                                                         <char>      <char>
-#>  1:              Total number of patients with at least one AE 100 (74.6%)
-#>  2:                                        Total number of AEs         502
-#>  3:                                     Total number of deaths  25 (18.7%)
-#>  4: Total number of patients withdrawn from study due to an AE    3 (2.2%)
-#>  5:                 Total number of patients with at least one            
-#>  6:                                      AE with fatal outcome    5 (3.7%)
-#>  7:                                                 Serious AE  85 (63.4%)
-#>  8:            Serious AE leading to withdrawal from treatment    6 (4.5%)
-#>  9:       Serious AE leading to dose modification/interruption  36 (26.9%)
-#> 10:                                         Related Serious AE  64 (47.8%)
-#> 11:                    AE leading to withdrawal from treatment  20 (14.9%)
-#> 12:               AE leading to dose modification/interruption  63 (47.0%)
-#> 13:                                                 Related AE  86 (64.2%)
-#> 14:            Related AE leading to withdrawal from treatment   10 (7.5%)
-#> 15:       Related AE leading to dose modification/interruption  44 (32.8%)
-#> 16:                          Severe AE (at greatest intensity)  77 (57.5%)
+#>                                                      stats   A: Drug X
+#>                                                     <char>      <char>
+#>  1:          Total number of patients with at least one AE 100 (74.6%)
+#>  2:                                    Total number of AEs         502
+#>  3:                                 Total number of deaths  25 (18.7%)
+#>  4:        Total number of patients withdrawn due to an AE    3 (2.2%)
+#>  5:             Total number of patients with at least one            
+#>  6:                                  AE with fatal outcome    5 (3.7%)
+#>  7:                                             Serious AE  85 (63.4%)
+#>  8:        Serious AE leading to withdrawal from treatment    6 (4.5%)
+#>  9:   Serious AE leading to dose modification/interruption  36 (26.9%)
+#> 10:                                     Related Serious AE  64 (47.8%)
+#> 11:                AE leading to withdrawal from treatment  20 (14.9%)
+#> 12:           AE leading to dose modification/interruption  63 (47.0%)
+#> 13:                                             Related AE  86 (64.2%)
+#> 14:        Related AE leading to withdrawal from treatment   10 (7.5%)
+#> 15:   Related AE leading to dose modification/interruption  44 (32.8%)
+#> 16:                      Severe AE (at greatest intensity)  77 (57.5%)
 #>     B: Placebo C: Combination
 #>         <char>         <char>
 #>  1: 98 (73.1%)    103 (78.0%)

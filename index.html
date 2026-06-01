@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/dtlg.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
@@ -68,7 +69,7 @@
 </div>
 <!-- badges: start -->
 
-<p>Create high-performance clinical reporting tables (TLGs) from ADaM-like inputs. The package provides a consistent, programmatic API to generate common tables such as demographics, adverse event incidence, and laboratory summaries, using ‘data.table’ for fast aggregation over large populations. Functions support flexible target-variable selection, stratification by treatment, and customizable summary statistics, and return tidy, machine-readable results ready to render with downstream table/formatting packages in analysis pipelines.</p>
+<p><a href="https://AscentSoftware.github.io/dtlg/">dtlg</a> builds the summary tables that populate Section 14 of a Clinical Study Report — demographics, adverse event incidence, and laboratory summaries — from ADaM-like analysis datasets. The compute backend is data.table, fast enough for interactive Shiny dashboards on populations of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>5</mn></msup><annotation encoding="application/x-tex">10^5</annotation></semantics></math> to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>6</mn></msup><annotation encoding="application/x-tex">10^6</annotation></semantics></math> subjects. Constructors return plain data.tables, ready to render with kableExtra, gt, DT, or any other formatter.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -111,25 +112,25 @@
 <span>                  <span class="st">"WD"</span>, <span class="st">"DSM"</span>, <span class="st">"REL"</span>, <span class="st">"RELWD"</span>, <span class="st">"RELDSM"</span>, <span class="st">"SEV"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">AET01</span><span class="op">[</span>, <span class="va">stats</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/strtrim.html" class="external-link">strtrim</a></span><span class="op">(</span><span class="va">stats</span>, <span class="fl">35</span><span class="op">)</span><span class="op">]</span><span class="op">[</span><span class="op">]</span></span>
-<span><span class="co">#&gt;                                   stats   A: Drug X B: Placebo C: Combination</span></span>
-<span><span class="co">#&gt;                                  &lt;char&gt;      &lt;char&gt;     &lt;char&gt;         &lt;char&gt;</span></span>
-<span><span class="co">#&gt;  1: Total number of patients with at le 100 (74.6%) 98 (73.1%)    103 (78.0%)</span></span>
-<span><span class="co">#&gt;  2:                 Total number of AEs         502        480            604</span></span>
-<span><span class="co">#&gt;  3:              Total number of deaths  25 (18.7%) 23 (17.2%)     22 (16.7%)</span></span>
-<span><span class="co">#&gt;  4: Total number of patients withdrawn     3 (2.2%)   6 (4.5%)       5 (3.8%)</span></span>
-<span><span class="co">#&gt;  5: Total number of patients with at le                                      </span></span>
-<span><span class="co">#&gt;  6:               AE with fatal outcome    5 (3.7%)   5 (3.7%)       6 (4.5%)</span></span>
-<span><span class="co">#&gt;  7:                          Serious AE  85 (63.4%) 80 (59.7%)     87 (65.9%)</span></span>
-<span><span class="co">#&gt;  8:   Serious AE leading to withdrawal     6 (4.5%)  12 (9.0%)       9 (6.8%)</span></span>
-<span><span class="co">#&gt;  9:   Serious AE leading to dose modifi  36 (26.9%) 40 (29.9%)     47 (35.6%)</span></span>
-<span><span class="co">#&gt; 10:                  Related Serious AE  64 (47.8%) 52 (38.8%)     64 (48.5%)</span></span>
-<span><span class="co">#&gt; 11:   AE leading to withdrawal from tre  20 (14.9%) 24 (17.9%)     26 (19.7%)</span></span>
-<span><span class="co">#&gt; 12:   AE leading to dose modification/i  63 (47.0%) 70 (52.2%)     77 (58.3%)</span></span>
-<span><span class="co">#&gt; 13:                          Related AE  86 (64.2%) 85 (63.4%)     92 (69.7%)</span></span>
-<span><span class="co">#&gt; 14:   Related AE leading to withdrawal    10 (7.5%)   9 (6.7%)      12 (9.1%)</span></span>
-<span><span class="co">#&gt; 15:   Related AE leading to dose modifi  44 (32.8%) 44 (32.8%)     51 (38.6%)</span></span>
-<span><span class="co">#&gt; 16:   Severe AE (at greatest intensity)  77 (57.5%) 70 (52.2%)     79 (59.8%)</span></span></code></pre></div>
+<span><span class="va">AET01</span><span class="op">[</span><span class="op">]</span></span>
+<span><span class="co">#&gt;                                                      stats   A: Drug X B: Placebo C: Combination</span></span>
+<span><span class="co">#&gt;                                                     &lt;char&gt;      &lt;char&gt;     &lt;char&gt;         &lt;char&gt;</span></span>
+<span><span class="co">#&gt;  1:          Total number of patients with at least one AE 100 (74.6%) 98 (73.1%)    103 (78.0%)</span></span>
+<span><span class="co">#&gt;  2:                                    Total number of AEs         502        480            604</span></span>
+<span><span class="co">#&gt;  3:                                 Total number of deaths  25 (18.7%) 23 (17.2%)     22 (16.7%)</span></span>
+<span><span class="co">#&gt;  4:        Total number of patients withdrawn due to an AE    3 (2.2%)   6 (4.5%)       5 (3.8%)</span></span>
+<span><span class="co">#&gt;  5:             Total number of patients with at least one                                      </span></span>
+<span><span class="co">#&gt;  6:                                  AE with fatal outcome    5 (3.7%)   5 (3.7%)       6 (4.5%)</span></span>
+<span><span class="co">#&gt;  7:                                             Serious AE  85 (63.4%) 80 (59.7%)     87 (65.9%)</span></span>
+<span><span class="co">#&gt;  8:        Serious AE leading to withdrawal from treatment    6 (4.5%)  12 (9.0%)       9 (6.8%)</span></span>
+<span><span class="co">#&gt;  9:   Serious AE leading to dose modification/interruption  36 (26.9%) 40 (29.9%)     47 (35.6%)</span></span>
+<span><span class="co">#&gt; 10:                                     Related Serious AE  64 (47.8%) 52 (38.8%)     64 (48.5%)</span></span>
+<span><span class="co">#&gt; 11:                AE leading to withdrawal from treatment  20 (14.9%) 24 (17.9%)     26 (19.7%)</span></span>
+<span><span class="co">#&gt; 12:           AE leading to dose modification/interruption  63 (47.0%) 70 (52.2%)     77 (58.3%)</span></span>
+<span><span class="co">#&gt; 13:                                             Related AE  86 (64.2%) 85 (63.4%)     92 (69.7%)</span></span>
+<span><span class="co">#&gt; 14:        Related AE leading to withdrawal from treatment   10 (7.5%)   9 (6.7%)      12 (9.1%)</span></span>
+<span><span class="co">#&gt; 15:   Related AE leading to dose modification/interruption  44 (32.8%) 44 (32.8%)     51 (38.6%)</span></span>
+<span><span class="co">#&gt; 16:                      Severe AE (at greatest intensity)  77 (57.5%) 70 (52.2%)     79 (59.8%)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -173,7 +174,8 @@
 <li>Anja Peebles-Brown <br><small class="roles"> Author </small>   </li>
 <li>Ashley Baldry <br><small class="roles"> Author </small>   </li>
 <li>Ramiro Magno <br><small class="roles"> Author, maintainer </small>   </li>
-<li>Acuity Analytics <br><small class="roles"> Copyright holder, funder </small>   </li>
+<li>
+<a href="https://www.acuityanalytics.com" class="external-link"><img src="https://raw.githubusercontent.com/AscentSoftware/acuitydown/refs/heads/main/man/figures/Acuity_logo_Colour_RGB.svg" alt="Acuity Analytics" width="120" style="margin-bottom: 3px;"></a> <br><small class="roles"> Copyright holder, funder </small>   </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -193,7 +195,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Max Ebenezer-Brown, Max Norman, Xinye Li, Anja Peebles-Brown, Ashley Baldry, Ramiro Magno, Acuity Analytics.</p>
+  <p>Developed by Max Ebenezer-Brown, Max Norman, Xinye Li, Anja Peebles-Brown, Ashley Baldry, Ramiro Magno, <a href="https://www.acuityanalytics.com" class="external-link"><img src="https://raw.githubusercontent.com/AscentSoftware/acuitydown/refs/heads/main/man/figures/Acuity_logo_Colour_RGB.svg" alt="Acuity Analytics" width="120" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

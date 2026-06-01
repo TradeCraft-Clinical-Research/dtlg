@@ -1,13 +1,12 @@
 # dtlg
 
-Create high-performance clinical reporting tables (TLGs) from ADaM-like
-inputs. The package provides a consistent, programmatic API to generate
-common tables such as demographics, adverse event incidence, and
-laboratory summaries, using ‘data.table’ for fast aggregation over large
-populations. Functions support flexible target-variable selection,
-stratification by treatment, and customizable summary statistics, and
-return tidy, machine-readable results ready to render with downstream
-table/formatting packages in analysis pipelines.
+[dtlg](https://AscentSoftware.github.io/dtlg/) builds the summary tables
+that populate Section 14 of a Clinical Study Report — demographics,
+adverse event incidence, and laboratory summaries — from ADaM-like
+analysis datasets. The compute backend is data.table, fast enough for
+interactive Shiny dashboards on populations of $`10^5`$ to $`10^6`$
+subjects. Constructors return plain data.tables, ready to render with
+kableExtra, gt, DT, or any other formatter.
 
 ## Installation
 
@@ -53,23 +52,23 @@ AET01 <-
                   "WD", "DSM", "REL", "RELWD", "RELDSM", "SEV")
   )
 
-AET01[, stats := strtrim(stats, 35)][]
-#>                                   stats   A: Drug X B: Placebo C: Combination
-#>                                  <char>      <char>     <char>         <char>
-#>  1: Total number of patients with at le 100 (74.6%) 98 (73.1%)    103 (78.0%)
-#>  2:                 Total number of AEs         502        480            604
-#>  3:              Total number of deaths  25 (18.7%) 23 (17.2%)     22 (16.7%)
-#>  4: Total number of patients withdrawn     3 (2.2%)   6 (4.5%)       5 (3.8%)
-#>  5: Total number of patients with at le                                      
-#>  6:               AE with fatal outcome    5 (3.7%)   5 (3.7%)       6 (4.5%)
-#>  7:                          Serious AE  85 (63.4%) 80 (59.7%)     87 (65.9%)
-#>  8:   Serious AE leading to withdrawal     6 (4.5%)  12 (9.0%)       9 (6.8%)
-#>  9:   Serious AE leading to dose modifi  36 (26.9%) 40 (29.9%)     47 (35.6%)
-#> 10:                  Related Serious AE  64 (47.8%) 52 (38.8%)     64 (48.5%)
-#> 11:   AE leading to withdrawal from tre  20 (14.9%) 24 (17.9%)     26 (19.7%)
-#> 12:   AE leading to dose modification/i  63 (47.0%) 70 (52.2%)     77 (58.3%)
-#> 13:                          Related AE  86 (64.2%) 85 (63.4%)     92 (69.7%)
-#> 14:   Related AE leading to withdrawal    10 (7.5%)   9 (6.7%)      12 (9.1%)
-#> 15:   Related AE leading to dose modifi  44 (32.8%) 44 (32.8%)     51 (38.6%)
-#> 16:   Severe AE (at greatest intensity)  77 (57.5%) 70 (52.2%)     79 (59.8%)
+AET01[]
+#>                                                      stats   A: Drug X B: Placebo C: Combination
+#>                                                     <char>      <char>     <char>         <char>
+#>  1:          Total number of patients with at least one AE 100 (74.6%) 98 (73.1%)    103 (78.0%)
+#>  2:                                    Total number of AEs         502        480            604
+#>  3:                                 Total number of deaths  25 (18.7%) 23 (17.2%)     22 (16.7%)
+#>  4:        Total number of patients withdrawn due to an AE    3 (2.2%)   6 (4.5%)       5 (3.8%)
+#>  5:             Total number of patients with at least one                                      
+#>  6:                                  AE with fatal outcome    5 (3.7%)   5 (3.7%)       6 (4.5%)
+#>  7:                                             Serious AE  85 (63.4%) 80 (59.7%)     87 (65.9%)
+#>  8:        Serious AE leading to withdrawal from treatment    6 (4.5%)  12 (9.0%)       9 (6.8%)
+#>  9:   Serious AE leading to dose modification/interruption  36 (26.9%) 40 (29.9%)     47 (35.6%)
+#> 10:                                     Related Serious AE  64 (47.8%) 52 (38.8%)     64 (48.5%)
+#> 11:                AE leading to withdrawal from treatment  20 (14.9%) 24 (17.9%)     26 (19.7%)
+#> 12:           AE leading to dose modification/interruption  63 (47.0%) 70 (52.2%)     77 (58.3%)
+#> 13:                                             Related AE  86 (64.2%) 85 (63.4%)     92 (69.7%)
+#> 14:        Related AE leading to withdrawal from treatment   10 (7.5%)   9 (6.7%)      12 (9.1%)
+#> 15:   Related AE leading to dose modification/interruption  44 (32.8%) 44 (32.8%)     51 (38.6%)
+#> 16:                      Severe AE (at greatest intensity)  77 (57.5%) 70 (52.2%)     79 (59.8%)
 ```
