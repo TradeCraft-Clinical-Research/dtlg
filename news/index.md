@@ -2,6 +2,8 @@
 
 ## dtlg 0.1.0
 
+CRAN release: 2026-04-29
+
 ### New features
 
 - [`summary_table()`](https://AscentSoftware.github.io/dtlg/reference/summary_table.md),

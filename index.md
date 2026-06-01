@@ -12,6 +12,7 @@ table/formatting packages in analysis pipelines.
 ## Installation
 
 ``` r
+
 install.packages("dtlg")
 ```
 
@@ -20,6 +21,7 @@ install.packages("dtlg")
 Creating an AET01 table:
 
 ``` r
+
 library(dtlg)
 
 head(adsl[, c("USUBJID", "ARM")])

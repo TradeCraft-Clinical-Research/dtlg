@@ -23,6 +23,8 @@ Useful links:
 
 Authors:
 
+- Ramiro Magno <ramiro.morgado@acuityanalytics.com>
+
 - Max Ebenezer-Brown <max.ebenezer-brown@acuityanalytics.com>
 
 - Max Norman
@@ -32,3 +34,8 @@ Authors:
 - Anja Peebles-Brown <anna.peebles-brown@acuityanalytics.com>
 
 - Ashley Baldry <ashley.baldry@acuityanalytics.com>
+
+Other contributors:
+
+- Acuity Analytics (https://www.acuityanalytics.com/) \[copyright
+  holder, funder\]

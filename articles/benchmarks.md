@@ -3,6 +3,7 @@
 ## Benchmark data
 
 ``` r
+
 seed <- 42
 
 adsl_small <- random.cdisc.data::radsl(N = 20000, seed = seed)
@@ -13,6 +14,7 @@ aesi <- dtlg::aesi
 ## Benchmarking demographics data
 
 ``` r
+
 arm_var <- "ARM"
 vars <- c(
   "AGE", "SEX", "RACE", "ETHNIC", "COUNTRY", "DTHFL", "BMRKR1",
@@ -40,8 +42,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression                            min  median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                        <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
-#> 1 tern_dmg_tab <- dtlg::tern_summa…   34.4s   34.4s    0.0290    8.08GB     1.57
-#> 2 dtlg_dmg_tab <- dtlg::summary_ta… 518.5ms 518.5ms    1.93    574.24MB     0
+#> 1 tern_dmg_tab <- dtlg::tern_summa…   29.8s   29.8s    0.0336    8.08GB     1.81
+#> 2 dtlg_dmg_tab <- dtlg::summary_ta… 352.4ms 352.4ms    2.84    574.24MB     0
 dtlg::as_dtlg_table(tt = tern_dmg_tab)
 #>                                         stats      A: Drug X     B: Placebo
 #>                                        <char>         <char>         <char>
@@ -293,6 +295,7 @@ dtlg_dmg_tab
 ## Benchmarking AET01
 
 ``` r
+
 arm_var <- "ARM"
 aesi_vars <- c(
   "FATAL", "SER", "SERWD", "SERDSM", "RELSER",
@@ -323,6 +326,6 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression                             min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>                           <bch> <bch:>     <dbl> <bch:byt>    <dbl>
-#> 1 tern_safety_tab <- dtlg::tern_AET01… 598ms  598ms      1.67   134.5MB     1.67
-#> 2 dtlg_safety_tab <- dtlg::AET01_tabl… 171ms  171ms      5.86    28.8MB     0
+#> 1 tern_safety_tab <- dtlg::tern_AET01… 465ms  465ms      2.15   134.5MB     2.15
+#> 2 dtlg_safety_tab <- dtlg::AET01_tabl… 145ms  145ms      6.89    28.8MB     0
 ```

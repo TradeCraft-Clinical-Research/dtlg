@@ -14,6 +14,9 @@
 
 - **Ramiro Magno**. Author, maintainer.
 
+- **Acuity Analytics**. Copyright holder, funder.  
+  https://www.acuityanalytics.com/
+
 ## Citation
 
 Source:
