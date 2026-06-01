@@ -1,3 +1,20 @@
+# dtlg 0.1.1
+
+## Bug fixes and behaviour changes
+
+* `AET01_table()`: the row label for AE-related withdrawals has been
+  shortened from "Total number of patients withdrawn from study due to an
+  AE" to "Total number of patients withdrawn due to an AE", for
+  consistency with the other terse event labels in the same table. Code
+  that matches this label by string equality (e.g. snapshot tests) will
+  need to be updated.
+
+## Documentation
+
+* The README and the "Getting started" article now set a wider print
+  width and display the full AET01 table rather than truncating row
+  labels.
+
 # dtlg 0.1.0
 
 ## New features
