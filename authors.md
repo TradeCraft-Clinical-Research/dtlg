@@ -22,7 +22,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/AscentSoftware/dtlg/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/AscentSoftware/dtlg/blob/v0.1.1/DESCRIPTION)
 
 Ebenezer-Brown M, Norman M, Li X, Peebles-Brown A, Baldry A, Magno R
 (2026). *dtlg: A Performance-Focused Package for Clinical Trial Tables*.
