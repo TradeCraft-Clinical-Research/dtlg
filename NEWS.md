@@ -1,3 +1,17 @@
+# dtlg 0.2.0
+
+Maintained fork of AscentSoftware/dtlg (MIT), forked at commit dffe23d.
+
+## Bug fixes
+
+* `event_count()` no longer errors when the filtered subset has zero rows.
+The v0.1.1 refactor (commit 331060c) replaced a 0-row-safe data.table `:=`
+assignment with base `[[<-`, which throws "replacement has 1 row, data
+  has 0" on an empty table. Any disposition/screen-status category with no
+subjects (common under a SUBJID filter) crashed instead of rendering as a
+zero-count row. The assignment is now length-matched via
+`rep(label, nrow(x))`.
+
 # dtlg 0.1.1
 
 ## Bug fixes and behaviour changes

@@ -71,8 +71,8 @@ event_count <- function(dt,
     }
 
   df_filtered_uniq <- unique(df_filtered, by = patient)
-  df_filtered_uniq[[label]] <- label
-  .total_dt[[label]] <- label
+  df_filtered_uniq[[label]] <- rep(label, nrow(df_filtered_uniq))
+  .total_dt[[label]] <- rep(label, nrow(.total_dt))
 
   events <-
     summary_table(
