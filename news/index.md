@@ -1,5 +1,16 @@
 # Changelog
 
+## dtlg 0.2.1
+
+### Bug fixes
+
+- event_count(): a category with zero matching subjects now renders with
+  its label and a 0 count instead of an NA row label. v0.2.0 fixed the
+  0-row crash but assigned the target via rep(label, nrow(x)) (a
+  character column); at zero rows level_set()/dt_count() had no value to
+  label the row. Using factor(rep(label, nrow(x)), levels = label) keeps
+  the label as a factor level.
+
 ## dtlg 0.2.0
 
 Maintained fork of AscentSoftware/dtlg (MIT), forked at commit dffe23d.

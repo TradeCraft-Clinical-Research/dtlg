@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,13 @@
       <small>Source: <a href="https://github.com/AscentSoftware/dtlg/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.1" id="dtlg-021">dtlg 0.2.1<a class="anchor" aria-label="anchor" href="#dtlg-021"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-1"></a></h3>
+<ul><li>event_count(): a category with zero matching subjects now renders with its label and a 0 count instead of an NA row label. v0.2.0 fixed the 0-row crash but assigned the target via rep(label, nrow(x)) (a character column); at zero rows level_set()/dt_count() had no value to label the row. Using factor(rep(label, nrow(x)), levels = label) keeps the label as a factor level.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="dtlg-020">dtlg 0.2.0<a class="anchor" aria-label="anchor" href="#dtlg-020"></a></h2>
 <p>Maintained fork of AscentSoftware/dtlg (MIT), forked at commit dffe23d.</p>
