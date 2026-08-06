@@ -71,8 +71,25 @@ event_count <- function(dt,
     }
 
   df_filtered_uniq <- unique(df_filtered, by = patient)
+
+  # --- zero-row-safe, label-preserving summary target -----------------------
+  # Pin a stable level set on both the treatment and the label column, drawn
+  # from the denominator population, BEFORE summarising. This keeps
+  # dt_count()'s (treat x label) key space fully populated even when the
+  # filtered subset has zero rows, so every treatment arm still appears (zero
+  # counts render as "0") and the row label is the level `label`, never <NA>.
+  # Without this, an empty subset (e.g. a disposition reason with no subjects
+  # under a SUBJID filter) collapses the key space: the count row is dropped
+  # and the joined-in denominator row carries an <NA> label with blank counts.
+  trt_levels <- if (is.factor(.total_dt[[treat]])) {
+    levels(.total_dt[[treat]])
+  } else {
+    unique(as.character(.total_dt[[treat]]))
+  }
+  df_filtered_uniq[[treat]] <- factor(as.character(df_filtered_uniq[[treat]]), levels = trt_levels)
+  .total_dt[[treat]]        <- factor(as.character(.total_dt[[treat]]),        levels = trt_levels)
   df_filtered_uniq[[label]] <- factor(rep(label, nrow(df_filtered_uniq)), levels = label)
-  .total_dt[[label]] <- factor(rep(label, nrow(.total_dt)), levels = label)
+  .total_dt[[label]]        <- factor(rep(label, nrow(.total_dt)),        levels = label)
 
   events <-
     summary_table(
@@ -82,6 +99,12 @@ event_count <- function(dt,
       .total_dt = .total_dt,
       indent = ""
     )[.N, ]
+
+  # event_count() returns exactly one row describing `label`; assign the row
+  # label directly as a final safeguard (mirrors the pre-refactor vendor line
+  # `event[, stats := label]`) so it can never surface as <NA>, regardless of
+  # how summary_table() derived its levels.
+  data.table::set(events, j = "stats", value = label)
 
   list(events)
 }
