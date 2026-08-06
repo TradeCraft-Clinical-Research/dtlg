@@ -1,5 +1,36 @@
 # Changelog
 
+## dtlg 0.2.2
+
+### Bug fixes
+
+- [`event_count()`](https://AscentSoftware.github.io/dtlg/reference/event_count.md)
+  (and therefore
+  [`multi_event_true()`](https://AscentSoftware.github.io/dtlg/reference/multi_event_true.md)
+  and
+  [`event_count_by()`](https://AscentSoftware.github.io/dtlg/reference/event_count_by.md))
+  now always labels its output row with the supplied `label`, and
+  renders zero-count events as “0” across every treatment arm, even when
+  the filtered subset has zero rows.
+
+  The v0.1.x refactor rebuilt
+  [`event_count()`](https://AscentSoftware.github.io/dtlg/reference/event_count.md)
+  on top of
+  [`summary_table()`](https://AscentSoftware.github.io/dtlg/reference/summary_table.md),
+  which *derives* the row label and the arm columns from the observed
+  data rather than assigning them. When `.filters` matched no rows
+  (e.g. a disposition reason with no subjects under a subject-level
+  filter) the derivation collapsed: `dt_count()`’s key space became
+  empty, the count row was lost, and the denominator join produced a row
+  with an label and blank counts. The pre-refactor vendor version
+  (0.0.1) avoided this by assigning `stats := label` directly and
+  counting against a fixed set of treatment arms.
+
+  This release restores that behaviour: the treatment and label columns
+  are pinned to a stable level set taken from the denominator population
+  before summarising, and the output row label is assigned from `label`
+  as a final safeguard.
+
 ## dtlg 0.2.1
 
 ### Bug fixes
