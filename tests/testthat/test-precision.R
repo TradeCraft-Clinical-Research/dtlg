@@ -71,7 +71,7 @@ test_that("calc_desc derives decimals from the source precision by default", {
   expect_identical(res$A[5], "30, 35")
 })
 
-test_that("calc_desc: explicit pct_dec keeps the legacy single-precision behaviour, src_dec overrides", {
+test_that("calc_desc: explicit pct_dec keeps the legacy precision, src_dec overrides", {
   dt <- data.frame(ARM = rep(c("A", "B"), each = 3), VAL = c(4.5, 4.25, 7, 5, 6.5, 8))
   res <- calc_desc(dt, "VAL", treat = "ARM", indent = "", pct_dec = 1)[[1]]
   expect_identical(res$A[3], "5.3 (1.5)")
@@ -90,7 +90,13 @@ test_that("summary_table_by uses one precision per first grouping value across v
     AVAL = c(10, 12, 11, 13, 14, 16, 15, 17,
              7.25, 7.5, 7, 7.4, 7, 7.5, 7.5, 7.5)
   )
-  res <- summary_table_by(dt, target = "AVAL", treat = "ARM", rows_by = c("PARAM", "AVISIT"), indent = "")[[1]]
+  res <- summary_table_by(
+    dt,
+    target = "AVAL",
+    treat = "ARM",
+    rows_by = c("PARAM", "AVISIT"),
+    indent = ""
+  )[[1]]
   ms <- res[stats %in% "Mean (SD)"]
   # ALT: whole numbers -> mean 1 decimal, SD 2
   expect_identical(ms$A[1], "11.0 (1.41)")

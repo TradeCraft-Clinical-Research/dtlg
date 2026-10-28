@@ -94,6 +94,11 @@ calc_desc <- function(dt,
   } else {
     digits <- list(mean = pct_dec, sd = pct_dec, median = pct_dec, min_max = pct_dec)
   }
+  # Bound locally so they are visible to dt_summarise() through `.env`
+  d_mean <- digits$mean
+  d_sd <- digits$sd
+  d_med <- digits$median
+  d_mm <- digits$min_max
 
   dt_stats <- dt_summarise(
     dt,
@@ -116,10 +121,10 @@ calc_desc <- function(dt,
     ),
     .env = list(
       target = as.name(target),
-      d_mean = digits$mean,
-      d_sd = digits$sd,
-      d_med = digits$median,
-      d_mm = digits$min_max
+      d_mean = d_mean,
+      d_sd = d_sd,
+      d_med = d_med,
+      d_mm = d_mm
     )
   )
 
