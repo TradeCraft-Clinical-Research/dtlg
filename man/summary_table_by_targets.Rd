@@ -12,7 +12,7 @@ summary_table_by_targets(
   rows_by,
   indent = nbsp(n = 4L),
   .total_dt = NULL,
-  pct_dec = 1,
+  pct_dec = NULL,
   treat_order = NULL,
   skip_absent = TRUE,
   sep = "."
@@ -31,7 +31,10 @@ summary_table_by_targets(
 
 \item{.total_dt}{optional table for total counts to be derived}
 
-\item{pct_dec}{decimal places for percentages}
+\item{pct_dec}{decimal places for percentages (and, if a number, for every
+continuous statistic). \code{NULL} (default): percentages use 1 decimal and
+continuous statistics are derived from the source precision, see
+\code{\link[=calc_desc]{calc_desc()}}.}
 
 \item{treat_order}{customise the column order of output table}
 

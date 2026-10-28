@@ -11,7 +11,7 @@ summary_table_by(
   rows_by,
   indent = nbsp(n = 4L),
   .total_dt = dt,
-  pct_dec = 1,
+  pct_dec = NULL,
   treat_order = NULL,
   skip_absent = TRUE,
   sep = "."
@@ -35,7 +35,12 @@ labels. Defaults to four HTML non-breaking spaces (\verb{&nbsp;}).}
 \item{.total_dt}{Separate table from \code{dt} from which to derive total counts
 per group.}
 
-\item{pct_dec}{Decimal places for reported figures.}
+\item{pct_dec}{Decimal places for reported figures. The default, \code{NULL},
+derives the decimals of each statistic from the precision of the source
+values (see \code{src_dec}): mean and median one more decimal than the source,
+standard deviation two more, minimum and maximum the same as the source. A
+number overrides this and is used for every statistic (the previous
+behaviour).}
 
 \item{treat_order}{Customise the column order of the output table.}
 

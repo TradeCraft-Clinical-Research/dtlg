@@ -1,3 +1,31 @@
+# dtlg 0.3.0
+
+## Breaking changes
+
+* Continuous summaries (`calc_desc()`, `calc_stats()` on numeric targets,
+  `summary_table()`, `summary_table_by()`, `summary_table_by_targets()`) now
+  default to `pct_dec = NULL`: the decimals of each statistic are derived from
+  the precision of the source values (the largest number of decimals found in
+  the data, see `source_decimals()`). The mean and median get one more decimal
+  than the source, the standard deviation two more, and the minimum and maximum
+  the same as the source. `summary_table_by()` takes the precision across all
+  splits of the first `rows_by` variable (e.g. all visits of a lab parameter).
+  Passing a number to `pct_dec` restores the previous behaviour (one precision
+  for every statistic).
+* The median is now formatted text (`"5.0"`) instead of a bare number, so
+  trailing zeros are kept.
+
+## Bug fixes
+
+* Percentages, means, SDs and min/max are now rounded half away from zero, as
+  SAS does. Previously `sprintf()` rounded exact ties to even and values such as
+  `6.35` (binary `6.3499999...`) down, so `1/16` (6.25%) was shown as `6.2%`
+  where SAS gives `6.3%`.
+
+## New functions
+
+* `round_half_up()`, `format_fixed()` and `source_decimals()`.
+
 # dtlg 0.2.2
 
 ## Bug fixes

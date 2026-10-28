@@ -128,8 +128,9 @@ n_pct_fmt <- function(n = 0L, support_zero = TRUE) {
 
 #' Regex for mean and standard deviation (`<mean> (<sd>)`)
 #'
-#' @param n Number of decimal places for the mean and standard deviation,
-#' defaults to 1.
+#' @param n Number of decimal places for the mean, defaults to 1.
+#' @param sd_n Number of decimal places for the standard deviation, defaults to
+#' `n`.
 #'
 #' @returns A regex as a string matching the pattern `<mean> (<sd>)`. The
 #' standard deviation can't be negative, but may be missing.
@@ -143,9 +144,9 @@ n_pct_fmt <- function(n = 0L, support_zero = TRUE) {
 #'
 #' @noRd
 #'
-mean_sd_fmt <- function(n = 1L) {
+mean_sd_fmt <- function(n = 1L, sd_n = n) {
   mean_fmt <- dbl_fmt(n = n)
-  sd_fmt <- dbl_fmt(n = n, sign = "positive")
+  sd_fmt <- dbl_fmt(n = sd_n, sign = "positive")
   ws_fmt <- " "
   sprintf("^%s(%s\\(%s\\))?$", mean_fmt, ws_fmt, sd_fmt)
 }
@@ -202,10 +203,10 @@ format_n_pct <- function(n, pct, .pct_digits = 1L) {
   is_zero <- n == 0L & is_zero(pct)
 
   n_fmt <- "%d"
-  pct_fmt <- paste0("(%2.", .pct_digits, "f%%)")
 
   n_str <- sprintf(fmt = n_fmt, n)
-  pct_str <- sprintf(fmt = pct_fmt, pct)
+  # Rounded half away from zero, as SAS does (6.25 -> 6.3), not to even (6.2)
+  pct_str <- sprintf(fmt = "(%s%%)", format_fixed(pct, digits = .pct_digits))
   pct_str <- ifelse(is_zero, "", pct_str)
 
   ws_str <- rep_len(" ", length.out = length(n))
@@ -218,21 +219,20 @@ format_n_pct <- function(n, pct, .pct_digits = 1L) {
   sprintf(fmt = "%s%s%s", n_str, ws_str, pct_str)
 }
 
-format_mean_sd <- function(mean, sd, .digits = 1L) {
+format_mean_sd <- function(mean, sd, .digits = 1L, .sd_digits = .digits) {
 
   stopifnot(
     is.numeric(mean),
     is.numeric(sd),
     is_scalar_number(.digits),
     .digits >= 0L,
+    is_scalar_number(.sd_digits),
+    .sd_digits >= 0L,
     identical(length(mean), length(sd))
   )
 
-  mean_fmt <- paste0("%.", .digits, "f")
-  sd_fmt <- paste0("(%.", .digits, "f)")
-
-  mean_str <- sprintf(fmt = mean_fmt, mean)
-  sd_str <- sprintf(fmt = sd_fmt, sd)
+  mean_str <- format_fixed(mean, digits = .digits)
+  sd_str <- sprintf(fmt = "(%s)", format_fixed(sd, digits = .sd_digits))
   ws_str <- rep_len(" ", length.out = length(mean))
 
   mean_str[is.na(mean)] <- ""
@@ -252,10 +252,8 @@ format_min_max <- function(min, max, .digits = 1L) {
     identical(length(max), length(min))
   )
 
-  fmt <- paste0("%.", .digits, "f")
-
-  min_str <- sprintf(fmt = fmt, min)
-  max_str <- sprintf(fmt = fmt, max)
+  min_str <- format_fixed(min, digits = .digits)
+  max_str <- format_fixed(max, digits = .digits)
   ws_str <- rep_len(", ", length.out = length(max))
 
   max_str[is.na(max)] <- ""
