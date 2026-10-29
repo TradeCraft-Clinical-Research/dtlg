@@ -23,7 +23,18 @@
 #' specifying the treatment population.
 #' @param indent A string to be used as indentation of summary statistics
 #' labels. Defaults to four HTML non-breaking spaces (`&nbsp;`).
-#' @param pct_dec Decimal places for reported figures.
+#' @param pct_dec Decimal places for reported figures. The default, `NULL`,
+#' derives the decimals of each statistic from the precision of the source
+#' values (see `src_dec`): mean and median one more decimal than the source,
+#' standard deviation two more, minimum and maximum the same as the source. A
+#' number overrides this and is used for every statistic (the previous
+#' behaviour).
+#' @param src_dec Number of decimals of the source values, used when `pct_dec`
+#' is `NULL`. Defaults to the largest number of decimals found in `target`
+#' (see [source_decimals()]). Pass it explicitly when the precision should be
+#' taken from a wider set of data than `dt`, e.g. all visits of a lab parameter.
+#' @param max_dec Cap on the decimals found in `target` when `src_dec` is not
+#' given. Defaults to `4`.
 #' @param inc_missing Toggle for including the "Missing" row:
 #' \describe{
 #' \item{`TRUE`}{(default) The Missing row is always displayed}
@@ -58,8 +69,10 @@ calc_desc <- function(dt,
                       target_name = target,
                       treat,
                       indent = nbsp(n = 4L),
-                      pct_dec = 1,
-                      inc_missing = TRUE) {
+                      pct_dec = NULL,
+                      inc_missing = TRUE,
+                      src_dec = NULL,
+                      max_dec = 4L) {
 
   stopifnot(
     is.data.frame(dt),
@@ -67,10 +80,25 @@ calc_desc <- function(dt,
     is_string(target_name),
     is_string(treat),
     is_string(indent),
-    is.numeric(pct_dec)
+    is.null(pct_dec) || is.numeric(pct_dec),
+    is.null(src_dec) || is_scalar_number(src_dec)
   )
 
   dt <- maybe_copy_dt(x = dt)
+
+  if (is.null(pct_dec)) {
+    if (is.null(src_dec)) {
+      src_dec <- source_decimals(dt[[target]], max_dec = max_dec)
+    }
+    digits <- desc_digits(src_dec)
+  } else {
+    digits <- list(mean = pct_dec, sd = pct_dec, median = pct_dec, min_max = pct_dec)
+  }
+  # Bound locally so they are visible to dt_summarise() through `.env`
+  d_mean <- digits$mean
+  d_sd <- digits$sd
+  d_med <- digits$median
+  d_mm <- digits$min_max
 
   dt_stats <- dt_summarise(
     dt,
@@ -79,18 +107,25 @@ calc_desc <- function(dt,
     `Mean (SD)` = format_mean_sd(
       mean = mean(target, na.rm = TRUE),
       sd = stats::sd(target, na.rm = TRUE),
-      .digits = pct_dec
+      .digits = d_mean,
+      .sd_digits = d_sd
     ),
-    Median = round(
+    Median = format_fixed(
       stats::median(target, na.rm = TRUE),
-      digits = pct_dec
+      digits = d_med
     ),
     `Min, Max` = format_min_max(
       min = min(target, na.rm = TRUE),
       max = max(target, na.rm = TRUE),
-      .digits = pct_dec
+      .digits = d_mm
     ),
-    .env = list(target = as.name(target), pct_dec = pct_dec)
+    .env = list(
+      target = as.name(target),
+      d_mean = d_mean,
+      d_sd = d_sd,
+      d_med = d_med,
+      d_mm = d_mm
+    )
   )
 
   if (isTRUE(inc_missing) || (is.na(inc_missing) && anyNA(dt[[target]]))) {
@@ -131,8 +166,8 @@ calc_desc <- function(dt,
 #' labels. Defaults to four HTML non-breaking spaces (`&nbsp;`).
 #' @param .total_dt Separate table from `dt` from which to derive total counts
 #' per group.
-#' @param pct_dec This argument is ignored, and is only kept for backward
-#' compatibility reasons.
+#' @param pct_dec Decimal places for percentages. `NULL` is treated as `1`.
+#' Percentages are rounded half away from zero (see [round_half_up()]).
 #'
 #' @returns A list containing a `data.table` formatted as follows:
 #'
@@ -167,6 +202,10 @@ calc_counts <- function(dt,
     is_string(indent),
     is.null(.total_dt) || is.data.frame(.total_dt)
   )
+
+  if (is.null(pct_dec)) {
+    pct_dec <- 1
+  }
 
   dt <- maybe_copy_dt(x = dt)
   counts_by_grp <- dt_count(dt = dt,
@@ -235,7 +274,7 @@ calc_stats <- function(dt,
                        target_name = target,
                        indent = nbsp(n = 4L),
                        .total_dt = NULL,
-                       pct_dec = 1) {
+                       pct_dec = NULL) {
   dt <- maybe_copy_dt(x = dt)
   UseMethod("calc_stats", dt[[target]])
 }
@@ -247,8 +286,10 @@ calc_stats.numeric <- function(dt,
                                ...,
                                target_name = target,
                                indent = nbsp(n = 4L),
-                               pct_dec = 1,
-                               inc_missing = TRUE) {
+                               pct_dec = NULL,
+                               inc_missing = TRUE,
+                               src_dec = NULL,
+                               max_dec = 4L) {
   calc_desc(
     dt,
     target = target,
@@ -256,7 +297,9 @@ calc_stats.numeric <- function(dt,
     target_name = target_name,
     indent = indent,
     inc_missing = inc_missing,
-    pct_dec = pct_dec
+    pct_dec = pct_dec,
+    src_dec = src_dec,
+    max_dec = max_dec
   )
 }
 

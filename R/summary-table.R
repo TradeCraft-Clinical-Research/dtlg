@@ -65,7 +65,7 @@ summary_table <- function(dt,
                           target_name = target,
                           indent = nbsp(n = 4L),
                           .total_dt = dt,
-                          pct_dec = 1,
+                          pct_dec = NULL,
                           treat_order = NULL,
                           skip_absent = TRUE,
                           inc_missing = TRUE) {
@@ -119,14 +119,27 @@ summary_table_by <- function(dt,
                              rows_by,
                              indent = nbsp(n = 4L),
                              .total_dt = dt,
-                             pct_dec = 1,
+                             pct_dec = NULL,
                              treat_order = NULL,
                              skip_absent = TRUE,
                              sep = ".") {
   dt <- maybe_copy_dt(x = dt)
 
+  # Source precision is taken across all splits of the first grouping variable
+  # (e.g. all visits of one lab parameter), so every visit of a parameter is
+  # shown with the same decimals.
+  src_dec <- NULL
+  dec_by <- NULL
+  if (is.null(pct_dec) && is.numeric(dt[[target]])) {
+    dec_by <- tapply(dt[[target]], as.character(dt[[rows_by[1L]]]), source_decimals)
+  }
+
   dt <- split(droplevels(dt), by = rows_by, drop = TRUE, sorted = TRUE)
   label <- names(dt)
+  if (!is.null(dec_by)) {
+    first <- vapply(dt, function(x) as.character(x[[rows_by[1L]]][1L]), character(1L))
+    src_dec <- as.list(unname(dec_by[first]))
+  }
 
   if (length(rows_by) > 1) {
     label <- strsplit(label, ".", fixed = TRUE)
@@ -139,15 +152,28 @@ summary_table_by <- function(dt,
     indent <- paste0(indent, indent)
   }
 
-  summary_split <- mapply(
-    calc_stats,
-    dt = dt,
-    target = target,
-    target_name = label,
-    treat = treat,
-    indent = indent,
-    pct_dec = pct_dec
-  )
+  summary_split <- if (is.null(src_dec)) {
+    mapply(
+      calc_stats,
+      dt = dt,
+      target = target,
+      target_name = label,
+      treat = treat,
+      indent = indent,
+      MoreArgs = list(pct_dec = pct_dec)
+    )
+  } else {
+    mapply(
+      calc_stats,
+      dt = dt,
+      target = target,
+      target_name = label,
+      treat = treat,
+      indent = indent,
+      src_dec = src_dec,
+      MoreArgs = list(pct_dec = pct_dec)
+    )
+  }
 
   if (length(rows_by) > 1) {
     x <- 0
@@ -177,7 +203,10 @@ summary_table_by <- function(dt,
 #' @param rows_by string, grouping variable to split events by.
 #' @param indent indent to be used for display and formatting purposes
 #' @param .total_dt optional table for total counts to be derived
-#' @param pct_dec decimal places for percentages
+#' @param pct_dec decimal places for percentages (and, if a number, for every
+#'   continuous statistic). `NULL` (default): percentages use 1 decimal and
+#'   continuous statistics are derived from the source precision, see
+#'   [calc_desc()].
 #' @param treat_order customise the column order of output table
 #' @param skip_absent Logical, default `TRUE`. Passed to
 #'   `data.table::setcolorder`, if `treat_order` includes columns not present in
@@ -206,7 +235,7 @@ summary_table_by_targets <- function(dt,
                                      rows_by,
                                      indent = nbsp(n = 4L),
                                      .total_dt = NULL,
-                                     pct_dec = 1,
+                                     pct_dec = NULL,
                                      treat_order = NULL,
                                      skip_absent = TRUE,
                                      sep = ".") {

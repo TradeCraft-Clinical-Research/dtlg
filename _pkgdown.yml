@@ -40,6 +40,15 @@ reference:
   - tern_AET01_table
   - tern_AET02_table
 
+- title: Rounding and precision
+  desc: >
+    Round half away from zero (as SAS does) and derive the decimals of summary
+    statistics from the precision of the source data.
+  contents:
+  - round_half_up
+  - format_fixed
+  - source_decimals
+
 - title: Copy semantics
   desc: >
     Control how objects are returned as `data.table`s: by reference (in place)

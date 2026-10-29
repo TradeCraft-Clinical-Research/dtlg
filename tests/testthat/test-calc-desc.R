@@ -37,8 +37,9 @@ test_that("calc_desc() formats summary strings correctly", {
   mean_sd_values <- tbl[stats == "Mean (SD)", -1]
   min_max_values <- tbl[stats == "Min, Max", -1]
 
-  expect_true(all(detect_fmt(unlist(mean_sd_values), mean_sd_fmt(n = 1L))))
-  expect_true(all(detect_fmt(unlist(min_max_values), min_max_fmt(n = 1L))))
+  # AGE is an integer (0 decimals): mean 1 decimal, SD 2, min/max 0
+  expect_true(all(detect_fmt(unlist(mean_sd_values), mean_sd_fmt(n = 1L, sd_n = 2L))))
+  expect_true(all(detect_fmt(unlist(min_max_values), min_max_fmt(n = 0L))))
 })
 
 test_that("calc_desc() only displays Missing when required if inc_missing is NA", {

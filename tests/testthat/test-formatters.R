@@ -110,3 +110,17 @@ test_that("detect_fmt() works with min_max_fmt()", {
   expect_false(detect_fmt("1.0, ", fmt))      # missing max
   expect_false(detect_fmt("a, b", fmt))       # non-numeric
 })
+
+test_that("format_n_pct() rounds percentage ties half away from zero (SAS-compatible)", {
+  # 1/16 = 6.25%: base sprintf() would give 6.2
+  expect_identical(format_n_pct(1L, 100 * 1 / 16), "1 (6.3%)")
+  expect_identical(format_n_pct(1L, 100 * 3 / 16), "1 (18.8%)")
+  expect_identical(format_n_pct(1L, 6.35), "1 (6.4%)")
+  expect_identical(format_n_pct(5L, 12.5, .pct_digits = 0), "5 (13%)")
+})
+
+test_that("format_mean_sd() and format_min_max() round half away from zero", {
+  expect_identical(format_mean_sd(2.25, 0.35, .digits = 1L), "2.3 (0.4)")
+  expect_identical(format_mean_sd(2.25, 0.355, .digits = 1L, .sd_digits = 2L), "2.3 (0.36)")
+  expect_identical(format_min_max(1.25, 9.35, .digits = 1L), "1.3, 9.4")
+})

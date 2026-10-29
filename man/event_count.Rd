@@ -33,8 +33,8 @@ the frame of \code{dt}.}
 \item{.total_dt}{Separate table from \code{dt} from which to derive total counts
 per group.}
 
-\item{pct_dec}{This argument is ignored, and is only kept for backward
-compatibility reasons.}
+\item{pct_dec}{Decimal places for percentages. \code{NULL} is treated as \code{1}.
+Percentages are rounded half away from zero (see \code{\link[=round_half_up]{round_half_up()}}).}
 }
 \value{
 A one-element list, where the element is a \code{data.table}.

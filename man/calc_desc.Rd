@@ -10,8 +10,10 @@ calc_desc(
   target_name = target,
   treat,
   indent = nbsp(n = 4L),
-  pct_dec = 1,
-  inc_missing = TRUE
+  pct_dec = NULL,
+  inc_missing = TRUE,
+  src_dec = NULL,
+  max_dec = 4L
 )
 }
 \arguments{
@@ -30,7 +32,12 @@ specifying the treatment population.}
 \item{indent}{A string to be used as indentation of summary statistics
 labels. Defaults to four HTML non-breaking spaces (\verb{&nbsp;}).}
 
-\item{pct_dec}{Decimal places for reported figures.}
+\item{pct_dec}{Decimal places for reported figures. The default, \code{NULL},
+derives the decimals of each statistic from the precision of the source
+values (see \code{src_dec}): mean and median one more decimal than the source,
+standard deviation two more, minimum and maximum the same as the source. A
+number overrides this and is used for every statistic (the previous
+behaviour).}
 
 \item{inc_missing}{Toggle for including the "Missing" row:
 \describe{
@@ -38,6 +45,14 @@ labels. Defaults to four HTML non-breaking spaces (\verb{&nbsp;}).}
 \item{\code{NA}}{The Missing row is only displayed if any missing values are present}
 \item{\code{FALSE}}{The Missing row is never included in the table}
 }}
+
+\item{src_dec}{Number of decimals of the source values, used when \code{pct_dec}
+is \code{NULL}. Defaults to the largest number of decimals found in \code{target}
+(see \code{\link[=source_decimals]{source_decimals()}}). Pass it explicitly when the precision should be
+taken from a wider set of data than \code{dt}, e.g. all visits of a lab parameter.}
+
+\item{max_dec}{Cap on the decimals found in \code{target} when \code{src_dec} is not
+given. Defaults to \code{4}.}
 }
 \value{
 A list containing a \code{data.table} formatted as follows:
