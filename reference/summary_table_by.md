@@ -13,7 +13,7 @@ summary_table_by(
   rows_by,
   indent = nbsp(n = 4L),
   .total_dt = dt,
-  pct_dec = 1,
+  pct_dec = NULL,
   treat_order = NULL,
   skip_absent = TRUE,
   sep = "."
@@ -52,7 +52,12 @@ summary_table_by(
 
 - pct_dec:
 
-  Decimal places for reported figures.
+  Decimal places for reported figures. The default, `NULL`, derives the
+  decimals of each statistic from the precision of the source values
+  (see `src_dec`): mean and median one more decimal than the source,
+  standard deviation two more, minimum and maximum the same as the
+  source. A number overrides this and is used for every statistic (the
+  previous behaviour).
 
 - treat_order:
 
@@ -84,31 +89,31 @@ summary_table_by(
   rows_by = c("PARAM","AVISIT")
 )
 #> [[1]]
-#>                                                          stats  A: Drug X
-#>                                                         <char>     <char>
-#>   1:                      Alanine Aminotransferase Measurement       <NA>
-#>   2:                         &nbsp;&nbsp;&nbsp;&nbsp;SCREENING           
-#>   3:         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n        134
-#>   4: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mean (SD) 18.2 (8.5)
-#>   5:    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Median       17.6
-#>  ---                                                                     
-#> 125:         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n        134
-#> 126: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mean (SD)  2.9 (0.1)
-#> 127:    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Median        2.9
-#> 128:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min, Max   2.6, 3.1
-#> 129:   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Missing          0
-#>      B: Placebo C: Combination
-#>          <char>         <char>
-#>   1:       <NA>           <NA>
-#>   2:                          
-#>   3:        134            132
-#>   4: 19.3 (9.8)     18.5 (9.1)
-#>   5:       18.1           17.6
-#>  ---                          
-#> 125:        134            132
-#> 126:  2.9 (0.1)      2.9 (0.1)
-#> 127:        2.9            2.9
-#> 128:   2.6, 3.1       2.6, 3.1
-#> 129:          0              0
+#>                                                          stats
+#>                                                         <char>
+#>   1:                      Alanine Aminotransferase Measurement
+#>   2:                         &nbsp;&nbsp;&nbsp;&nbsp;SCREENING
+#>   3:         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n
+#>   4: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mean (SD)
+#>   5:    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Median
+#>  ---                                                          
+#> 125:         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n
+#> 126: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mean (SD)
+#> 127:    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Median
+#> 128:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min, Max
+#> 129:   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Missing
+#>                A: Drug X          B: Placebo      C: Combination
+#>                   <char>              <char>              <char>
+#>   1:                <NA>                <NA>                <NA>
+#>   2:                                                            
+#>   3:                 134                 134                 132
+#>   4: 18.18741 (8.523147) 19.32020 (9.818815) 18.45257 (9.112056)
+#>   5:            17.63222            18.10897            17.55179
+#>  ---                                                            
+#> 125:                 134                 134                 132
+#> 126:  2.90724 (0.089662)  2.89914 (0.103584)  2.89671 (0.104742)
+#> 127:             2.91348             2.91676             2.90978
+#> 128:      2.5955, 3.0845      2.6175, 3.1276      2.6081, 3.1274
+#> 129:                   0                   0                   0
 #> 
 ```

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
 <span>  <span class="va">rows_by</span>,</span>
 <span>  indent <span class="op">=</span> <span class="fu"><a href="nbsp.html">nbsp</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span>,</span>
 <span>  .total_dt <span class="op">=</span> <span class="va">dt</span>,</span>
-<span>  pct_dec <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  pct_dec <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  treat_order <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  skip_absent <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  sep <span class="op">=</span> <span class="st">"."</span></span>
@@ -91,7 +91,12 @@ per group.</p></dd>
 
 
 <dt id="arg-pct-dec">pct_dec<a class="anchor" aria-label="anchor" href="#arg-pct-dec"></a></dt>
-<dd><p>Decimal places for reported figures.</p></dd>
+<dd><p>Decimal places for reported figures. The default, <code>NULL</code>,
+derives the decimals of each statistic from the precision of the source
+values (see <code>src_dec</code>): mean and median one more decimal than the source,
+standard deviation two more, minimum and maximum the same as the source. A
+number overrides this and is used for every statistic (the previous
+behaviour).</p></dd>
 
 
 <dt id="arg-treat-order">treat_order<a class="anchor" aria-label="anchor" href="#arg-treat-order"></a></dt>
@@ -123,32 +128,32 @@ indicated in <code>rows_by</code>.</p>
 <span class="r-in"><span>  rows_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PARAM"</span>,<span class="st">"AVISIT"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                          stats  A: Drug X</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                         &lt;char&gt;     &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                      Alanine Aminotransferase Measurement       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:                         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SCREENING           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;n        134</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Mean (SD) 18.2 (8.5)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Median       17.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125:         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;n        134</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Mean (SD)  2.9 (0.1)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Median        2.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128:  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Min, Max   2.6, 3.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129:   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Missing          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      B: Placebo C: Combination</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;char&gt;         &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:       &lt;NA&gt;           &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:        134            132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 19.3 (9.8)     18.5 (9.1)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:       18.1           17.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125:        134            132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126:  2.9 (0.1)      2.9 (0.1)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:        2.9            2.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128:   2.6, 3.1       2.6, 3.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129:          0              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                          stats</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                         &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                      Alanine Aminotransferase Measurement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:                         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SCREENING</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Mean (SD)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125:         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Mean (SD)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127:    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128:  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Min, Max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129:   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                A: Drug X          B: Placebo      C: Combination</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;char&gt;              &lt;char&gt;              &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                &lt;NA&gt;                &lt;NA&gt;                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:                 134                 134                 132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 18.18741 (8.523147) 19.32020 (9.818815) 18.45257 (9.112056)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:            17.63222            18.10897            17.55179</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125:                 134                 134                 132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126:  2.90724 (0.089662)  2.89914 (0.103584)  2.89671 (0.104742)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127:             2.91348             2.91676             2.90978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128:      2.5955, 3.0845      2.6175, 3.1276      2.6081, 3.1274</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129:                   0                   0                   0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

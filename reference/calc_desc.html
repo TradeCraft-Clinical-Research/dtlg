@@ -27,7 +27,7 @@ Missing: number of missing target values
 
     <a class="navbar-brand me-2" href="../index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,8 +76,10 @@ levels:</p><ul><li><p><code>n</code>: number of observations</p></li>
 <span>  target_name <span class="op">=</span> <span class="va">target</span>,</span>
 <span>  <span class="va">treat</span>,</span>
 <span>  indent <span class="op">=</span> <span class="fu"><a href="nbsp.html">nbsp</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4L</span><span class="op">)</span>,</span>
-<span>  pct_dec <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  inc_missing <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  pct_dec <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inc_missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  src_dec <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_dec <span class="op">=</span> <span class="fl">4L</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -111,7 +113,12 @@ labels. Defaults to four HTML non-breaking spaces (<code>&amp;nbsp;</code>).</p>
 
 
 <dt id="arg-pct-dec">pct_dec<a class="anchor" aria-label="anchor" href="#arg-pct-dec"></a></dt>
-<dd><p>Decimal places for reported figures.</p></dd>
+<dd><p>Decimal places for reported figures. The default, <code>NULL</code>,
+derives the decimals of each statistic from the precision of the source
+values (see <code>src_dec</code>): mean and median one more decimal than the source,
+standard deviation two more, minimum and maximum the same as the source. A
+number overrides this and is used for every statistic (the previous
+behaviour).</p></dd>
 
 
 <dt id="arg-inc-missing">inc_missing<a class="anchor" aria-label="anchor" href="#arg-inc-missing"></a></dt>
@@ -126,6 +133,18 @@ labels. Defaults to four HTML non-breaking spaces (<code>&amp;nbsp;</code>).</p>
 
 
 </dl></dd>
+
+
+<dt id="arg-src-dec">src_dec<a class="anchor" aria-label="anchor" href="#arg-src-dec"></a></dt>
+<dd><p>Number of decimals of the source values, used when <code>pct_dec</code>
+is <code>NULL</code>. Defaults to the largest number of decimals found in <code>target</code>
+(see <code><a href="source_decimals.html">source_decimals()</a></code>). Pass it explicitly when the precision should be
+taken from a wider set of data than <code>dt</code>, e.g. all visits of a lab parameter.</p></dd>
+
+
+<dt id="arg-max-dec">max_dec<a class="anchor" aria-label="anchor" href="#arg-max-dec"></a></dt>
+<dd><p>Cap on the decimals found in <code>target</code> when <code>src_dec</code> is not
+given. Defaults to <code>4</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -142,34 +161,42 @@ summarised statistics labels.</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Calculate summary statistics for the age of the subjects in each region.</span></span></span>
 <span class="r-in"><span><span class="fu">calc_desc</span><span class="op">(</span>dt <span class="op">=</span> <span class="va">adsl</span>, <span class="st">"AGE"</span>, treat <span class="op">=</span> <span class="st">"REGION1"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                stats     Africa       Asia    Eurasia</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;char&gt;     &lt;char&gt;     &lt;char&gt;     &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                               AGE                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;n         26        268         19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Mean (SD) 32.3 (7.7) 34.6 (6.9) 35.9 (8.3)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Median         31         34         36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Min, Max 20.0, 50.0 21.0, 58.0 25.0, 58.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Missing          0          0          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Europe North America South America</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;        &lt;char&gt;        &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:           9            48            30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 38.4 (16.1)    36.2 (6.8)    36.1 (8.1)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:          30            35          35.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  26.0, 69.0    24.0, 57.0    24.0, 64.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:           0             0             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                stats      Africa        Asia     Eurasia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;char&gt;      &lt;char&gt;      &lt;char&gt;      &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                               AGE                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;n          26         268          19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Mean (SD) 32.3 (7.69) 34.6 (6.91) 35.9 (8.33)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Median        31.0        34.0        36.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Min, Max      20, 50      21, 58      25, 58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Missing           0           0           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Europe North America South America</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;char&gt;        &lt;char&gt;        &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:            9            48            30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 38.4 (16.09)   36.2 (6.76)   36.1 (8.10)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         30.0          35.0          35.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:       26, 69        24, 57        24, 64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:            0             0             0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate summary statistics for biomarker 1 in each of the three arms</span></span></span>
 <span class="r-in"><span><span class="co"># (`ARM`).</span></span></span>
 <span class="r-in"><span><span class="fu">calc_desc</span><span class="op">(</span>dt <span class="op">=</span> <span class="va">adsl</span>, <span class="st">"BMRKR1"</span>, treat <span class="op">=</span> <span class="st">"ARM"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                stats A: Drug X B: Placebo C: Combination</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;char&gt;    &lt;char&gt;     &lt;char&gt;         &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                            BMRKR1                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;n       134        134            132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Mean (SD) 6.0 (3.6)  5.7 (3.3)      5.6 (3.5)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Median       5.4        4.8            4.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Min, Max 0.4, 17.7  0.6, 14.2      0.2, 21.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Missing         0          0              0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                stats          A: Drug X         B: Placebo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                               &lt;char&gt;             &lt;char&gt;             &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                            BMRKR1                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;n                134                134</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Mean (SD) 5.96986 (3.554098) 5.69851 (3.306731)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Median            5.38509            4.80596</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Min, Max    0.4056, 17.6723    0.6484, 14.2374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Missing                  0                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        C: Combination</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 5.61791 (3.493994)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:            4.61109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:    0.1654, 21.3934</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                  0</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

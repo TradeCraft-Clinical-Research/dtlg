@@ -13,7 +13,7 @@ summary_table(
   target_name = target,
   indent = nbsp(n = 4L),
   .total_dt = dt,
-  pct_dec = 1,
+  pct_dec = NULL,
   treat_order = NULL,
   skip_absent = TRUE,
   inc_missing = TRUE
@@ -52,7 +52,12 @@ summary_table(
 
 - pct_dec:
 
-  Decimal places for reported figures.
+  Decimal places for reported figures. The default, `NULL`, derives the
+  decimals of each statistic from the precision of the source values
+  (see `src_dec`): mean and median one more decimal than the source,
+  standard deviation two more, minimum and maximum the same as the
+  source. A number overrides this and is used for every statistic (the
+  previous behaviour).
 
 - treat_order:
 
@@ -139,9 +144,9 @@ summary_table(
 #>          <char>      <char>         <char>
 #>  1:                                       
 #>  2:         134         134            132
-#>  3:  33.8 (6.6)  35.4 (7.9)     35.4 (7.7)
-#>  4:          33          35             35
-#>  5:  21.0, 50.0  21.0, 62.0     20.0, 69.0
+#>  3: 33.8 (6.55) 35.4 (7.90)    35.4 (7.72)
+#>  4:        33.0        35.0           35.0
+#>  5:      21, 50      21, 62         20, 69
 #>  6:           0           0              0
 #>  7:                                       
 #>  8:    8 (6.0%)   11 (8.2%)       6 (4.5%)
@@ -197,34 +202,34 @@ summary_table(
 #> 26:                                   &nbsp;&nbsp;&nbsp;&nbsp;Missing
 #>                                                                 stats
 #>                                                                <char>
-#>       A: Drug X  B: Placebo C: Combination
-#>          <char>      <char>         <char>
-#>  1:                                       
-#>  2:         134         134            132
-#>  3:  33.8 (6.6)  35.4 (7.9)     35.4 (7.7)
-#>  4:          33          35             35
-#>  5:  21.0, 50.0  21.0, 62.0     20.0, 69.0
-#>  6:           0           0              0
-#>  7:                                       
-#>  8:    8 (6.0%)   11 (8.2%)       6 (4.5%)
-#>  9:  68 (50.7%)  67 (50.0%)     73 (55.3%)
-#> 10:  31 (23.1%)  28 (20.9%)     32 (24.2%)
-#> 11:           0    1 (0.7%)              0
-#> 12:           0    1 (0.7%)              0
-#> 13:           0           0              0
-#> 14:           0           0              0
-#> 15:  27 (20.1%)  26 (19.4%)     21 (15.9%)
-#> 16:                                       
-#> 17:  15 (11.2%)  18 (13.4%)     15 (11.4%)
-#> 18: 104 (77.6%) 103 (76.9%)    101 (76.5%)
-#> 19:    6 (4.5%)   10 (7.5%)      11 (8.3%)
-#> 20:    9 (6.7%)    3 (2.2%)       5 (3.8%)
-#> 21:                                       
-#> 22:         134         134            132
-#> 23:   6.0 (3.6)   5.7 (3.3)      5.6 (3.5)
-#> 24:         5.4         4.8            4.6
-#> 25:   0.4, 17.7   0.6, 14.2      0.2, 21.4
-#> 26:           0           0              0
-#>       A: Drug X  B: Placebo C: Combination
-#>          <char>      <char>         <char>
+#>              A: Drug X         B: Placebo     C: Combination
+#>                 <char>             <char>             <char>
+#>  1:                                                         
+#>  2:                134                134                132
+#>  3:        33.8 (6.55)        35.4 (7.90)        35.4 (7.72)
+#>  4:               33.0               35.0               35.0
+#>  5:             21, 50             21, 62             20, 69
+#>  6:                  0                  0                  0
+#>  7:                                                         
+#>  8:           8 (6.0%)          11 (8.2%)           6 (4.5%)
+#>  9:         68 (50.7%)         67 (50.0%)         73 (55.3%)
+#> 10:         31 (23.1%)         28 (20.9%)         32 (24.2%)
+#> 11:                  0           1 (0.7%)                  0
+#> 12:                  0           1 (0.7%)                  0
+#> 13:                  0                  0                  0
+#> 14:                  0                  0                  0
+#> 15:         27 (20.1%)         26 (19.4%)         21 (15.9%)
+#> 16:                                                         
+#> 17:         15 (11.2%)         18 (13.4%)         15 (11.4%)
+#> 18:        104 (77.6%)        103 (76.9%)        101 (76.5%)
+#> 19:           6 (4.5%)          10 (7.5%)          11 (8.3%)
+#> 20:           9 (6.7%)           3 (2.2%)           5 (3.8%)
+#> 21:                                                         
+#> 22:                134                134                132
+#> 23: 5.96986 (3.554098) 5.69851 (3.306731) 5.61791 (3.493994)
+#> 24:            5.38509            4.80596            4.61109
+#> 25:    0.4056, 17.6723    0.6484, 14.2374    0.1654, 21.3934
+#> 26:                  0                  0                  0
+#>              A: Drug X         B: Placebo     C: Combination
+#>                 <char>             <char>             <char>
 ```

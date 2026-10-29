@@ -18,15 +18,15 @@ tidy `data.table`s ready to render with any downstream formatter
 The package began as a response to a specific frustration: Shiny
 dashboards for clinical review needed aggregations fast enough to
 recompute on user input. The reference implementations in
-[tern](https://insightsengineering.github.io/tern/) and
-[rtables](https://github.com/insightsengineering/rtables) are
-authoritative but were not designed for the round-trip latency of an
-interactive session. Two design choices follow from that origin:
+[tern](https://pharmaverse.github.io/tern/) and
+[rtables](https://github.com/pharmaverse/rtables) are authoritative but
+were not designed for the round-trip latency of an interactive session.
+Two design choices follow from that origin:
 
 - The compute backend is `data.table`. Aggregation over populations of
   $`10^5`$ to $`10^6`$ subjects remains interactive. See
   `vignette("benchmarks")` for comparisons against
-  [tern](https://insightsengineering.github.io/tern/).
+  [tern](https://pharmaverse.github.io/tern/).
 
 - The output is always a plain `data.table` with a `stats` column and
   one column per treatment level. There is no bespoke table object, no
@@ -92,34 +92,62 @@ dm_table <- summary_table(
 )
 
 dm_table
-#>                                           stats  A: Drug X B: Placebo C: Combination
-#>                                          <char>     <char>     <char>         <char>
-#>  1:                                    Age (yr)                                     
-#>  2:                                           n        134        134            132
-#>  3:                                   Mean (SD) 33.8 (6.6) 35.4 (7.9)     35.4 (7.7)
-#>  4:                                      Median         33         35             35
-#>  5:                                    Min, Max 21.0, 50.0 21.0, 62.0     20.0, 69.0
-#>  6:                                     Missing          0          0              0
-#>  7:                                         Sex                                     
-#>  8:                                           F 79 (59.0%) 82 (61.2%)     70 (53.0%)
-#>  9:                                           M 55 (41.0%) 52 (38.8%)     62 (47.0%)
-#> 10:                                        Race                                     
-#> 11:            AMERICAN INDIAN OR ALASKA NATIVE   8 (6.0%)  11 (8.2%)       6 (4.5%)
-#> 12:                                       ASIAN 68 (50.7%) 67 (50.0%)     73 (55.3%)
-#> 13:                   BLACK OR AFRICAN AMERICAN 31 (23.1%) 28 (20.9%)     32 (24.2%)
-#> 14:                                    MULTIPLE          0   1 (0.7%)              0
-#> 15:   NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER          0   1 (0.7%)              0
-#> 16:                                       OTHER          0          0              0
-#> 17:                                     UNKNOWN          0          0              0
-#> 18:                                       WHITE 27 (20.1%) 26 (19.4%)     21 (15.9%)
-#> 19:                                 Biomarker 1                                     
-#> 20:                                           n        134        134            132
-#> 21:                                   Mean (SD)  6.0 (3.6)  5.7 (3.3)      5.6 (3.5)
-#> 22:                                      Median        5.4        4.8            4.6
-#> 23:                                    Min, Max  0.4, 17.7  0.6, 14.2      0.2, 21.4
-#> 24:                                     Missing          0          0              0
-#>                                           stats  A: Drug X B: Placebo C: Combination
-#>                                          <char>     <char>     <char>         <char>
+#>                                           stats          A: Drug X         B: Placebo
+#>                                          <char>             <char>             <char>
+#>  1:                                    Age (yr)                                      
+#>  2:                                           n                134                134
+#>  3:                                   Mean (SD)        33.8 (6.55)        35.4 (7.90)
+#>  4:                                      Median               33.0               35.0
+#>  5:                                    Min, Max             21, 50             21, 62
+#>  6:                                     Missing                  0                  0
+#>  7:                                         Sex                                      
+#>  8:                                           F         79 (59.0%)         82 (61.2%)
+#>  9:                                           M         55 (41.0%)         52 (38.8%)
+#> 10:                                        Race                                      
+#> 11:            AMERICAN INDIAN OR ALASKA NATIVE           8 (6.0%)          11 (8.2%)
+#> 12:                                       ASIAN         68 (50.7%)         67 (50.0%)
+#> 13:                   BLACK OR AFRICAN AMERICAN         31 (23.1%)         28 (20.9%)
+#> 14:                                    MULTIPLE                  0           1 (0.7%)
+#> 15:   NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER                  0           1 (0.7%)
+#> 16:                                       OTHER                  0                  0
+#> 17:                                     UNKNOWN                  0                  0
+#> 18:                                       WHITE         27 (20.1%)         26 (19.4%)
+#> 19:                                 Biomarker 1                                      
+#> 20:                                           n                134                134
+#> 21:                                   Mean (SD) 5.96986 (3.554098) 5.69851 (3.306731)
+#> 22:                                      Median            5.38509            4.80596
+#> 23:                                    Min, Max    0.4056, 17.6723    0.6484, 14.2374
+#> 24:                                     Missing                  0                  0
+#>                                           stats          A: Drug X         B: Placebo
+#>                                          <char>             <char>             <char>
+#>         C: Combination
+#>                 <char>
+#>  1:                   
+#>  2:                132
+#>  3:        35.4 (7.72)
+#>  4:               35.0
+#>  5:             20, 69
+#>  6:                  0
+#>  7:                   
+#>  8:         70 (53.0%)
+#>  9:         62 (47.0%)
+#> 10:                   
+#> 11:           6 (4.5%)
+#> 12:         73 (55.3%)
+#> 13:         32 (24.2%)
+#> 14:                  0
+#> 15:                  0
+#> 16:                  0
+#> 17:                  0
+#> 18:         21 (15.9%)
+#> 19:                   
+#> 20:                132
+#> 21: 5.61791 (3.493994)
+#> 22:            4.61109
+#> 23:    0.1654, 21.3934
+#> 24:                  0
+#>         C: Combination
+#>                 <char>
 ```
 
 The first column carries the variable heading and the indented statistic
@@ -136,14 +164,14 @@ summary_table(
   treat_order = c("B: Placebo", "A: Drug X", "C: Combination"),
   indent      = "  "
 )
-#>          stats B: Placebo  A: Drug X C: Combination
-#>         <char>     <char>     <char>         <char>
-#> 1:    Age (yr)                                     
-#> 2:           n        134        134            132
-#> 3:   Mean (SD) 35.4 (7.9) 33.8 (6.6)     35.4 (7.7)
-#> 4:      Median         35         33             35
-#> 5:    Min, Max 21.0, 62.0 21.0, 50.0     20.0, 69.0
-#> 6:     Missing          0          0              0
+#>          stats  B: Placebo   A: Drug X C: Combination
+#>         <char>      <char>      <char>         <char>
+#> 1:    Age (yr)                                       
+#> 2:           n         134         134            132
+#> 3:   Mean (SD) 35.4 (7.90) 33.8 (6.55)    35.4 (7.72)
+#> 4:      Median        35.0        33.0           35.0
+#> 5:    Min, Max      21, 62      21, 50         20, 69
+#> 6:     Missing           0           0              0
 ```
 
 ## Building blocks for event tables
@@ -349,25 +377,25 @@ lb_table <- summary_table_by_targets(
 )
 
 head(lb_table, 8)
-#>                                   stats A: Drug X.AVAL A: Drug X.CHG B: Placebo.AVAL B: Placebo.CHG
-#>                                  <char>         <char>        <char>          <char>         <char>
-#> 1: Alanine Aminotransferase Measurement           <NA>          <NA>            <NA>           <NA>
-#> 2:                             BASELINE                                                            
-#> 3:                                    n            134           134             134            134
-#> 4:                            Mean (SD)     17.7 (9.9)     0.0 (0.0)      18.7 (9.8)      0.0 (0.0)
-#> 5:                               Median           17.5             0            18.2              0
-#> 6:                             Min, Max      0.0, 44.1      0.0, 0.0       1.5, 54.4       0.0, 0.0
-#> 7:                              Missing              0             0               0              0
-#> 8:                         WEEK 1 DAY 8                                                            
-#>    C: Combination.AVAL C: Combination.CHG
-#>                 <char>             <char>
-#> 1:                <NA>               <NA>
-#> 2:                                       
-#> 3:                 132                132
-#> 4:          19.5 (9.1)          0.0 (0.0)
-#> 5:                  19                  0
-#> 6:           0.6, 39.8           0.0, 0.0
-#> 7:                   0                  0
+#>                                   stats      A: Drug X.AVAL      A: Drug X.CHG     B: Placebo.AVAL
+#>                                  <char>              <char>             <char>              <char>
+#> 1: Alanine Aminotransferase Measurement                <NA>               <NA>                <NA>
+#> 2:                             BASELINE                                                           
+#> 3:                                    n                 134                134                 134
+#> 4:                            Mean (SD) 17.73784 (9.926025) 0.00000 (0.000000) 18.70657 (9.831338)
+#> 5:                               Median            17.46409            0.00000            18.19331
+#> 6:                             Min, Max     0.0023, 44.0644     0.0000, 0.0000     1.4789, 54.3957
+#> 7:                              Missing                   0                  0                   0
+#> 8:                         WEEK 1 DAY 8                                                           
+#>        B: Placebo.CHG C: Combination.AVAL C: Combination.CHG
+#>                <char>              <char>             <char>
+#> 1:               <NA>                <NA>               <NA>
+#> 2:                                                          
+#> 3:                134                 132                132
+#> 4: 0.00000 (0.000000) 19.46339 (9.083913) 0.00000 (0.000000)
+#> 5:            0.00000            18.96760            0.00000
+#> 6:     0.0000, 0.0000     0.5683, 39.8083     0.0000, 0.0000
+#> 7:                  0                   0                  0
 #> 8:
 ```
 
@@ -399,9 +427,9 @@ dm_html |>
 |:---|:---|:---|:---|
 | Age (yr) |  |  |  |
 |     n | 134 | 134 | 132 |
-|     Mean (SD) | 33.8 (6.6) | 35.4 (7.9) | 35.4 (7.7) |
-|     Median | 33 | 35 | 35 |
-|     Min, Max | 21.0, 50.0 | 21.0, 62.0 | 20.0, 69.0 |
+|     Mean (SD) | 33.8 (6.55) | 35.4 (7.90) | 35.4 (7.72) |
+|     Median | 33.0 | 35.0 | 35.0 |
+|     Min, Max | 21, 50 | 21, 62 | 20, 69 |
 |     Missing | 0 | 0 | 0 |
 | Sex |  |  |  |
 |     F | 79 (59.0%) | 82 (61.2%) | 70 (53.0%) |
@@ -417,9 +445,9 @@ dm_html |>
 |     WHITE | 27 (20.1%) | 26 (19.4%) | 21 (15.9%) |
 | Biomarker 1 |  |  |  |
 |     n | 134 | 134 | 132 |
-|     Mean (SD) | 6.0 (3.6) | 5.7 (3.3) | 5.6 (3.5) |
-|     Median | 5.4 | 4.8 | 4.6 |
-|     Min, Max | 0.4, 17.7 | 0.6, 14.2 | 0.2, 21.4 |
+|     Mean (SD) | 5.96986 (3.554098) | 5.69851 (3.306731) | 5.61791 (3.493994) |
+|     Median | 5.38509 | 4.80596 | 4.61109 |
+|     Min, Max | 0.4056, 17.6723 | 0.6484, 14.2374 | 0.1654, 21.3934 |
 |     Missing | 0 | 0 | 0 |
 
 In a Shiny app the same object goes straight into
@@ -480,15 +508,15 @@ downstream, the default is correct and avoids redundant allocation.
 
 ## Comparison with tern
 
-[tern](https://insightsengineering.github.io/tern/) and
-[rtables](https://github.com/insightsengineering/rtables) produce the
-canonical reference output for these tables.
+[tern](https://pharmaverse.github.io/tern/) and
+[rtables](https://github.com/pharmaverse/rtables) produce the canonical
+reference output for these tables.
 [dtlg](https://AscentSoftware.github.io/dtlg/) ships thin wrappers —
 [`tern_summary_table()`](https://AscentSoftware.github.io/dtlg/reference/tern_summary_table.md),
 [`tern_AET01_table()`](https://AscentSoftware.github.io/dtlg/reference/tern_AET01_table.md),
 [`tern_AET02_table()`](https://AscentSoftware.github.io/dtlg/reference/tern_AET02_table.md)
 — that build the equivalent `TableTree` through
-[tern](https://insightsengineering.github.io/tern/) using the same call
+[tern](https://pharmaverse.github.io/tern/) using the same call
 signature as the [dtlg](https://AscentSoftware.github.io/dtlg/)
 constructor.
 [`as_dtlg_table()`](https://AscentSoftware.github.io/dtlg/reference/as_dtlg_table.md)
@@ -521,8 +549,8 @@ as_dtlg_table(tt)
 ## Where to go next
 
 - `vignette("benchmarks")` — timing comparisons against
-  [tern](https://insightsengineering.github.io/tern/) on realistic
-  population sizes.
+  [tern](https://pharmaverse.github.io/tern/) on realistic population
+  sizes.
 - The function reference, grouped by responsibility (Statistics, Events,
   Summary Tables, Clinical Tables, tern interop, Copy semantics).
 - [`?aesi`](https://AscentSoftware.github.io/dtlg/reference/aesi.md) —

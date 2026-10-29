@@ -25,6 +25,7 @@
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/dtlg-package.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/event_count.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/event_count_by.html</loc></url>
+<url><loc>https://AscentSoftware.github.io/dtlg/reference/format_fixed.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/format_n_pct.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/indent.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/index.html</loc></url>
@@ -34,8 +35,10 @@
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/multi_event_true.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/nbsp.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/print_dtlg.html</loc></url>
+<url><loc>https://AscentSoftware.github.io/dtlg/reference/round_half_up.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/round_pct.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/round_sum.html</loc></url>
+<url><loc>https://AscentSoftware.github.io/dtlg/reference/source_decimals.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/summary_table.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/summary_table_by.html</loc></url>
 <url><loc>https://AscentSoftware.github.io/dtlg/reference/summary_table_by_targets.html</loc></url>

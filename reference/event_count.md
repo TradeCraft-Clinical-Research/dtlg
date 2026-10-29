@@ -50,8 +50,9 @@ event_count(
 
 - pct_dec:
 
-  This argument is ignored, and is only kept for backward compatibility
-  reasons.
+  Decimal places for percentages. `NULL` is treated as `1`. Percentages
+  are rounded half away from zero (see
+  [`round_half_up()`](https://AscentSoftware.github.io/dtlg/reference/round_half_up.md)).
 
 ## Value
 

@@ -1,5 +1,45 @@
 # Changelog
 
+## dtlg 0.3.0
+
+### Breaking changes
+
+- Continuous summaries
+  ([`calc_desc()`](https://AscentSoftware.github.io/dtlg/reference/calc_desc.md),
+  [`calc_stats()`](https://AscentSoftware.github.io/dtlg/reference/calc_stats.md)
+  on numeric targets,
+  [`summary_table()`](https://AscentSoftware.github.io/dtlg/reference/summary_table.md),
+  [`summary_table_by()`](https://AscentSoftware.github.io/dtlg/reference/summary_table_by.md),
+  [`summary_table_by_targets()`](https://AscentSoftware.github.io/dtlg/reference/summary_table_by_targets.md))
+  now default to `pct_dec = NULL`: the decimals of each statistic are
+  derived from the precision of the source values (the largest number of
+  decimals found in the data, see
+  [`source_decimals()`](https://AscentSoftware.github.io/dtlg/reference/source_decimals.md)).
+  The mean and median get one more decimal than the source, the standard
+  deviation two more, and the minimum and maximum the same as the
+  source.
+  [`summary_table_by()`](https://AscentSoftware.github.io/dtlg/reference/summary_table_by.md)
+  takes the precision across all splits of the first `rows_by` variable
+  (e.g. all visits of a lab parameter). Passing a number to `pct_dec`
+  restores the previous behaviour (one precision for every statistic).
+- The median is now formatted text (`"5.0"`) instead of a bare number,
+  so trailing zeros are kept.
+
+### Bug fixes
+
+- Percentages, means, SDs and min/max are now rounded half away from
+  zero, as SAS does. Previously
+  [`sprintf()`](https://rdrr.io/r/base/sprintf.html) rounded exact ties
+  to even and values such as `6.35` (binary `6.3499999...`) down, so
+  `1/16` (6.25%) was shown as `6.2%` where SAS gives `6.3%`.
+
+### New functions
+
+- [`round_half_up()`](https://AscentSoftware.github.io/dtlg/reference/round_half_up.md),
+  [`format_fixed()`](https://AscentSoftware.github.io/dtlg/reference/format_fixed.md)
+  and
+  [`source_decimals()`](https://AscentSoftware.github.io/dtlg/reference/source_decimals.md).
+
 ## dtlg 0.2.2
 
 ### Bug fixes

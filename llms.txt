@@ -137,6 +137,18 @@ side-by-side comparison
 
   Generate AET02-style AE summary using `tern` and `rtables`
 
+## Rounding and precision
+
+Round half away from zero (as SAS does) and derive the decimals of
+summary statistics from the precision of the source data.
+
+- [`round_half_up()`](https://AscentSoftware.github.io/dtlg/reference/round_half_up.md)
+  : Round half away from zero
+- [`format_fixed()`](https://AscentSoftware.github.io/dtlg/reference/format_fixed.md)
+  : Format numbers with a fixed number of decimals (half away from zero)
+- [`source_decimals()`](https://AscentSoftware.github.io/dtlg/reference/source_decimals.md)
+  : Number of decimal places in the source values
+
 ## Copy semantics
 
 Control how objects are returned as `data.table`s: by reference (in

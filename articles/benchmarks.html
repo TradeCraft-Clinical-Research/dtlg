@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,8 +113,8 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                            min  median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> tern_dmg_tab &lt;- dtlg::tern_summa…   30.4s   30.4s    0.032<span style="text-decoration: underline;">9</span>    8.08GB     1.52</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> dtlg_dmg_tab &lt;- dtlg::summary_ta… 518.6ms 518.6ms    1.93    574.24MB     1.93</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> tern_dmg_tab &lt;- dtlg::tern_summa…   19.5s   19.5s    0.051<span style="text-decoration: underline;">3</span>    8.08GB     2.62</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> dtlg_dmg_tab &lt;- dtlg::summary_ta… 363.8ms 363.8ms    2.75    814.64MB     5.50</span></span>
 <span><span class="fu">dtlg</span><span class="fu">::</span><span class="fu"><a href="../reference/as_dtlg_table.html">as_dtlg_table</a></span><span class="op">(</span>tt <span class="op">=</span> <span class="va">tern_dmg_tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                         stats      A: Drug X     B: Placebo</span></span>
 <span><span class="co">#&gt;                                        &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span></span>
@@ -245,122 +245,122 @@
 <span><span class="co">#&gt;     C: Combination</span></span>
 <span><span class="co">#&gt;             &lt;char&gt;</span></span>
 <span><span class="va">dtlg_dmg_tab</span></span>
-<span><span class="co">#&gt;                                         stats      A: Drug X     B: Placebo</span></span>
-<span><span class="co">#&gt;                                        &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span></span>
-<span><span class="co">#&gt;  1:                                       AGE                              </span></span>
-<span><span class="co">#&gt;  2:                                         n         333924         333087</span></span>
-<span><span class="co">#&gt;  3:                                 Mean (SD)     34.5 (7.1)     34.5 (7.1)</span></span>
-<span><span class="co">#&gt;  4:                                    Median             34             34</span></span>
-<span><span class="co">#&gt;  5:                                  Min, Max     20.0, 84.0     20.0, 86.0</span></span>
-<span><span class="co">#&gt;  6:                                   Missing              0              0</span></span>
-<span><span class="co">#&gt;  7:                                       SEX                              </span></span>
-<span><span class="co">#&gt;  8:                                         F 173527 (52.0%) 173167 (52.0%)</span></span>
-<span><span class="co">#&gt;  9:                                         M 160397 (48.0%) 159920 (48.0%)</span></span>
-<span><span class="co">#&gt; 10:                                      RACE                              </span></span>
-<span><span class="co">#&gt; 11:          AMERICAN INDIAN OR ALASKA NATIVE   16823 (5.0%)   16435 (4.9%)</span></span>
-<span><span class="co">#&gt; 12:                                     ASIAN 184009 (55.1%) 183379 (55.1%)</span></span>
-<span><span class="co">#&gt; 13:                 BLACK OR AFRICAN AMERICAN  76493 (22.9%)  76700 (23.0%)</span></span>
-<span><span class="co">#&gt; 14:                                  MULTIPLE    1367 (0.4%)    1304 (0.4%)</span></span>
-<span><span class="co">#&gt; 15: NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER     978 (0.3%)    1004 (0.3%)</span></span>
-<span><span class="co">#&gt; 16:                                     OTHER     615 (0.2%)     693 (0.2%)</span></span>
-<span><span class="co">#&gt; 17:                                   UNKNOWN     656 (0.2%)     624 (0.2%)</span></span>
-<span><span class="co">#&gt; 18:                                     WHITE  52983 (15.9%)  52948 (15.9%)</span></span>
-<span><span class="co">#&gt; 19:                                    ETHNIC                              </span></span>
-<span><span class="co">#&gt; 20:                        HISPANIC OR LATINO  33527 (10.0%)   33122 (9.9%)</span></span>
-<span><span class="co">#&gt; 21:                    NOT HISPANIC OR LATINO 267178 (80.0%) 266445 (80.0%)</span></span>
-<span><span class="co">#&gt; 22:                              NOT REPORTED   19788 (5.9%)   20149 (6.0%)</span></span>
-<span><span class="co">#&gt; 23:                                   UNKNOWN   13431 (4.0%)   13371 (4.0%)</span></span>
-<span><span class="co">#&gt; 24:                                   COUNTRY                              </span></span>
-<span><span class="co">#&gt; 25:                                       BRA   25981 (7.8%)   25698 (7.7%)</span></span>
-<span><span class="co">#&gt; 26:                                       CAN    4738 (1.4%)    4783 (1.4%)</span></span>
-<span><span class="co">#&gt; 27:                                       CHE     948 (0.3%)     980 (0.3%)</span></span>
-<span><span class="co">#&gt; 28:                                       CHN 168262 (50.4%) 168213 (50.5%)</span></span>
-<span><span class="co">#&gt; 29:                                       GBR    8567 (2.6%)    8284 (2.5%)</span></span>
-<span><span class="co">#&gt; 30:                                       JPN   15347 (4.6%)   15475 (4.6%)</span></span>
-<span><span class="co">#&gt; 31:                                       NGA   25230 (7.6%)   25404 (7.6%)</span></span>
-<span><span class="co">#&gt; 32:                                       PAK   26117 (7.8%)   26043 (7.8%)</span></span>
-<span><span class="co">#&gt; 33:                                       RUS   17699 (5.3%)   17587 (5.3%)</span></span>
-<span><span class="co">#&gt; 34:                                       USA  41035 (12.3%)  40620 (12.2%)</span></span>
-<span><span class="co">#&gt; 35:                                     DTHFL                              </span></span>
-<span><span class="co">#&gt; 36:                                         N 278284 (83.3%) 277476 (83.3%)</span></span>
-<span><span class="co">#&gt; 37:                                         Y  55640 (16.7%)  55611 (16.7%)</span></span>
-<span><span class="co">#&gt; 38:                                    BMRKR1                              </span></span>
-<span><span class="co">#&gt; 39:                                         n         333924         333087</span></span>
-<span><span class="co">#&gt; 40:                                 Mean (SD)      6.0 (3.5)      6.0 (3.5)</span></span>
-<span><span class="co">#&gt; 41:                                    Median            5.3            5.3</span></span>
-<span><span class="co">#&gt; 42:                                  Min, Max      0.0, 36.4      0.0, 33.5</span></span>
-<span><span class="co">#&gt; 43:                                   Missing              0              0</span></span>
-<span><span class="co">#&gt; 44:                                   REGION1                              </span></span>
-<span><span class="co">#&gt; 45:                                    Africa   25230 (7.6%)   25404 (7.6%)</span></span>
-<span><span class="co">#&gt; 46:                                      Asia 209726 (62.8%) 209731 (63.0%)</span></span>
-<span><span class="co">#&gt; 47:                                   Eurasia   17699 (5.3%)   17587 (5.3%)</span></span>
-<span><span class="co">#&gt; 48:                                    Europe    8567 (2.6%)    8284 (2.5%)</span></span>
-<span><span class="co">#&gt; 49:                             North America  45773 (13.7%)  45403 (13.6%)</span></span>
-<span><span class="co">#&gt; 50:                             South America   25981 (7.8%)   25698 (7.7%)</span></span>
-<span><span class="co">#&gt; 51:                                    BMRKR2                              </span></span>
-<span><span class="co">#&gt; 52:                                      HIGH 110964 (33.2%) 111066 (33.3%)</span></span>
-<span><span class="co">#&gt; 53:                                       LOW 111579 (33.4%) 111021 (33.3%)</span></span>
-<span><span class="co">#&gt; 54:                                    MEDIUM 111381 (33.4%) 111000 (33.3%)</span></span>
-<span><span class="co">#&gt;                                         stats      A: Drug X     B: Placebo</span></span>
-<span><span class="co">#&gt;                                        &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span></span>
-<span><span class="co">#&gt;     C: Combination</span></span>
-<span><span class="co">#&gt;             &lt;char&gt;</span></span>
-<span><span class="co">#&gt;  1:               </span></span>
-<span><span class="co">#&gt;  2:         332989</span></span>
-<span><span class="co">#&gt;  3:     34.5 (7.1)</span></span>
-<span><span class="co">#&gt;  4:             34</span></span>
-<span><span class="co">#&gt;  5:     20.0, 89.0</span></span>
-<span><span class="co">#&gt;  6:              0</span></span>
-<span><span class="co">#&gt;  7:               </span></span>
-<span><span class="co">#&gt;  8: 172556 (51.8%)</span></span>
-<span><span class="co">#&gt;  9: 160433 (48.2%)</span></span>
-<span><span class="co">#&gt; 10:               </span></span>
-<span><span class="co">#&gt; 11:   16551 (5.0%)</span></span>
-<span><span class="co">#&gt; 12: 183398 (55.1%)</span></span>
-<span><span class="co">#&gt; 13:  76367 (22.9%)</span></span>
-<span><span class="co">#&gt; 14:    1294 (0.4%)</span></span>
-<span><span class="co">#&gt; 15:    1054 (0.3%)</span></span>
-<span><span class="co">#&gt; 16:     644 (0.2%)</span></span>
-<span><span class="co">#&gt; 17:     666 (0.2%)</span></span>
-<span><span class="co">#&gt; 18:  53015 (15.9%)</span></span>
-<span><span class="co">#&gt; 19:               </span></span>
-<span><span class="co">#&gt; 20:  33604 (10.1%)</span></span>
-<span><span class="co">#&gt; 21: 266303 (80.0%)</span></span>
-<span><span class="co">#&gt; 22:   19896 (6.0%)</span></span>
-<span><span class="co">#&gt; 23:   13186 (4.0%)</span></span>
-<span><span class="co">#&gt; 24:               </span></span>
-<span><span class="co">#&gt; 25:   25833 (7.8%)</span></span>
-<span><span class="co">#&gt; 26:    4593 (1.4%)</span></span>
-<span><span class="co">#&gt; 27:     983 (0.3%)</span></span>
-<span><span class="co">#&gt; 28: 168093 (50.5%)</span></span>
-<span><span class="co">#&gt; 29:    8419 (2.5%)</span></span>
-<span><span class="co">#&gt; 30:   15522 (4.7%)</span></span>
-<span><span class="co">#&gt; 31:   25438 (7.6%)</span></span>
-<span><span class="co">#&gt; 32:   25885 (7.8%)</span></span>
-<span><span class="co">#&gt; 33:   17359 (5.2%)</span></span>
-<span><span class="co">#&gt; 34:  40864 (12.3%)</span></span>
-<span><span class="co">#&gt; 35:               </span></span>
-<span><span class="co">#&gt; 36: 277339 (83.3%)</span></span>
-<span><span class="co">#&gt; 37:  55650 (16.7%)</span></span>
-<span><span class="co">#&gt; 38:               </span></span>
-<span><span class="co">#&gt; 39:         332989</span></span>
-<span><span class="co">#&gt; 40:      6.0 (3.5)</span></span>
-<span><span class="co">#&gt; 41:            5.4</span></span>
-<span><span class="co">#&gt; 42:      0.0, 34.2</span></span>
-<span><span class="co">#&gt; 43:              0</span></span>
-<span><span class="co">#&gt; 44:               </span></span>
-<span><span class="co">#&gt; 45:   25438 (7.6%)</span></span>
-<span><span class="co">#&gt; 46: 209500 (62.9%)</span></span>
-<span><span class="co">#&gt; 47:   17359 (5.2%)</span></span>
-<span><span class="co">#&gt; 48:    8419 (2.5%)</span></span>
-<span><span class="co">#&gt; 49:  45457 (13.7%)</span></span>
-<span><span class="co">#&gt; 50:   25833 (7.8%)</span></span>
-<span><span class="co">#&gt; 51:               </span></span>
-<span><span class="co">#&gt; 52: 111115 (33.4%)</span></span>
-<span><span class="co">#&gt; 53: 110749 (33.3%)</span></span>
-<span><span class="co">#&gt; 54: 111125 (33.4%)</span></span>
-<span><span class="co">#&gt;     C: Combination</span></span>
-<span><span class="co">#&gt;             &lt;char&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;                                         stats          A: Drug X</span></span>
+<span><span class="co">#&gt;                                        &lt;char&gt;             &lt;char&gt;</span></span>
+<span><span class="co">#&gt;  1:                                       AGE                   </span></span>
+<span><span class="co">#&gt;  2:                                         n             333924</span></span>
+<span><span class="co">#&gt;  3:                                 Mean (SD)        34.5 (7.08)</span></span>
+<span><span class="co">#&gt;  4:                                    Median               34.0</span></span>
+<span><span class="co">#&gt;  5:                                  Min, Max             20, 84</span></span>
+<span><span class="co">#&gt;  6:                                   Missing                  0</span></span>
+<span><span class="co">#&gt;  7:                                       SEX                   </span></span>
+<span><span class="co">#&gt;  8:                                         F     173527 (52.0%)</span></span>
+<span><span class="co">#&gt;  9:                                         M     160397 (48.0%)</span></span>
+<span><span class="co">#&gt; 10:                                      RACE                   </span></span>
+<span><span class="co">#&gt; 11:          AMERICAN INDIAN OR ALASKA NATIVE       16823 (5.0%)</span></span>
+<span><span class="co">#&gt; 12:                                     ASIAN     184009 (55.1%)</span></span>
+<span><span class="co">#&gt; 13:                 BLACK OR AFRICAN AMERICAN      76493 (22.9%)</span></span>
+<span><span class="co">#&gt; 14:                                  MULTIPLE        1367 (0.4%)</span></span>
+<span><span class="co">#&gt; 15: NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER         978 (0.3%)</span></span>
+<span><span class="co">#&gt; 16:                                     OTHER         615 (0.2%)</span></span>
+<span><span class="co">#&gt; 17:                                   UNKNOWN         656 (0.2%)</span></span>
+<span><span class="co">#&gt; 18:                                     WHITE      52983 (15.9%)</span></span>
+<span><span class="co">#&gt; 19:                                    ETHNIC                   </span></span>
+<span><span class="co">#&gt; 20:                        HISPANIC OR LATINO      33527 (10.0%)</span></span>
+<span><span class="co">#&gt; 21:                    NOT HISPANIC OR LATINO     267178 (80.0%)</span></span>
+<span><span class="co">#&gt; 22:                              NOT REPORTED       19788 (5.9%)</span></span>
+<span><span class="co">#&gt; 23:                                   UNKNOWN       13431 (4.0%)</span></span>
+<span><span class="co">#&gt; 24:                                   COUNTRY                   </span></span>
+<span><span class="co">#&gt; 25:                                       BRA       25981 (7.8%)</span></span>
+<span><span class="co">#&gt; 26:                                       CAN        4738 (1.4%)</span></span>
+<span><span class="co">#&gt; 27:                                       CHE         948 (0.3%)</span></span>
+<span><span class="co">#&gt; 28:                                       CHN     168262 (50.4%)</span></span>
+<span><span class="co">#&gt; 29:                                       GBR        8567 (2.6%)</span></span>
+<span><span class="co">#&gt; 30:                                       JPN       15347 (4.6%)</span></span>
+<span><span class="co">#&gt; 31:                                       NGA       25230 (7.6%)</span></span>
+<span><span class="co">#&gt; 32:                                       PAK       26117 (7.8%)</span></span>
+<span><span class="co">#&gt; 33:                                       RUS       17699 (5.3%)</span></span>
+<span><span class="co">#&gt; 34:                                       USA      41035 (12.3%)</span></span>
+<span><span class="co">#&gt; 35:                                     DTHFL                   </span></span>
+<span><span class="co">#&gt; 36:                                         N     278284 (83.3%)</span></span>
+<span><span class="co">#&gt; 37:                                         Y      55640 (16.7%)</span></span>
+<span><span class="co">#&gt; 38:                                    BMRKR1                   </span></span>
+<span><span class="co">#&gt; 39:                                         n             333924</span></span>
+<span><span class="co">#&gt; 40:                                 Mean (SD) 5.99907 (3.465848)</span></span>
+<span><span class="co">#&gt; 41:                                    Median            5.34914</span></span>
+<span><span class="co">#&gt; 42:                                  Min, Max    0.0268, 36.4481</span></span>
+<span><span class="co">#&gt; 43:                                   Missing                  0</span></span>
+<span><span class="co">#&gt; 44:                                   REGION1                   </span></span>
+<span><span class="co">#&gt; 45:                                    Africa       25230 (7.6%)</span></span>
+<span><span class="co">#&gt; 46:                                      Asia     209726 (62.8%)</span></span>
+<span><span class="co">#&gt; 47:                                   Eurasia       17699 (5.3%)</span></span>
+<span><span class="co">#&gt; 48:                                    Europe        8567 (2.6%)</span></span>
+<span><span class="co">#&gt; 49:                             North America      45773 (13.7%)</span></span>
+<span><span class="co">#&gt; 50:                             South America       25981 (7.8%)</span></span>
+<span><span class="co">#&gt; 51:                                    BMRKR2                   </span></span>
+<span><span class="co">#&gt; 52:                                      HIGH     110964 (33.2%)</span></span>
+<span><span class="co">#&gt; 53:                                       LOW     111579 (33.4%)</span></span>
+<span><span class="co">#&gt; 54:                                    MEDIUM     111381 (33.4%)</span></span>
+<span><span class="co">#&gt;                                         stats          A: Drug X</span></span>
+<span><span class="co">#&gt;                                        &lt;char&gt;             &lt;char&gt;</span></span>
+<span><span class="co">#&gt;             B: Placebo     C: Combination</span></span>
+<span><span class="co">#&gt;                 &lt;char&gt;             &lt;char&gt;</span></span>
+<span><span class="co">#&gt;  1:                                      </span></span>
+<span><span class="co">#&gt;  2:             333087             332989</span></span>
+<span><span class="co">#&gt;  3:        34.5 (7.08)        34.5 (7.09)</span></span>
+<span><span class="co">#&gt;  4:               34.0               34.0</span></span>
+<span><span class="co">#&gt;  5:             20, 86             20, 89</span></span>
+<span><span class="co">#&gt;  6:                  0                  0</span></span>
+<span><span class="co">#&gt;  7:                                      </span></span>
+<span><span class="co">#&gt;  8:     173167 (52.0%)     172556 (51.8%)</span></span>
+<span><span class="co">#&gt;  9:     159920 (48.0%)     160433 (48.2%)</span></span>
+<span><span class="co">#&gt; 10:                                      </span></span>
+<span><span class="co">#&gt; 11:       16435 (4.9%)       16551 (5.0%)</span></span>
+<span><span class="co">#&gt; 12:     183379 (55.1%)     183398 (55.1%)</span></span>
+<span><span class="co">#&gt; 13:      76700 (23.0%)      76367 (22.9%)</span></span>
+<span><span class="co">#&gt; 14:        1304 (0.4%)        1294 (0.4%)</span></span>
+<span><span class="co">#&gt; 15:        1004 (0.3%)        1054 (0.3%)</span></span>
+<span><span class="co">#&gt; 16:         693 (0.2%)         644 (0.2%)</span></span>
+<span><span class="co">#&gt; 17:         624 (0.2%)         666 (0.2%)</span></span>
+<span><span class="co">#&gt; 18:      52948 (15.9%)      53015 (15.9%)</span></span>
+<span><span class="co">#&gt; 19:                                      </span></span>
+<span><span class="co">#&gt; 20:       33122 (9.9%)      33604 (10.1%)</span></span>
+<span><span class="co">#&gt; 21:     266445 (80.0%)     266303 (80.0%)</span></span>
+<span><span class="co">#&gt; 22:       20149 (6.0%)       19896 (6.0%)</span></span>
+<span><span class="co">#&gt; 23:       13371 (4.0%)       13186 (4.0%)</span></span>
+<span><span class="co">#&gt; 24:                                      </span></span>
+<span><span class="co">#&gt; 25:       25698 (7.7%)       25833 (7.8%)</span></span>
+<span><span class="co">#&gt; 26:        4783 (1.4%)        4593 (1.4%)</span></span>
+<span><span class="co">#&gt; 27:         980 (0.3%)         983 (0.3%)</span></span>
+<span><span class="co">#&gt; 28:     168213 (50.5%)     168093 (50.5%)</span></span>
+<span><span class="co">#&gt; 29:        8284 (2.5%)        8419 (2.5%)</span></span>
+<span><span class="co">#&gt; 30:       15475 (4.6%)       15522 (4.7%)</span></span>
+<span><span class="co">#&gt; 31:       25404 (7.6%)       25438 (7.6%)</span></span>
+<span><span class="co">#&gt; 32:       26043 (7.8%)       25885 (7.8%)</span></span>
+<span><span class="co">#&gt; 33:       17587 (5.3%)       17359 (5.2%)</span></span>
+<span><span class="co">#&gt; 34:      40620 (12.2%)      40864 (12.3%)</span></span>
+<span><span class="co">#&gt; 35:                                      </span></span>
+<span><span class="co">#&gt; 36:     277476 (83.3%)     277339 (83.3%)</span></span>
+<span><span class="co">#&gt; 37:      55611 (16.7%)      55650 (16.7%)</span></span>
+<span><span class="co">#&gt; 38:                                      </span></span>
+<span><span class="co">#&gt; 39:             333087             332989</span></span>
+<span><span class="co">#&gt; 40: 5.98759 (3.463290) 6.01001 (3.475432)</span></span>
+<span><span class="co">#&gt; 41:            5.33223            5.35129</span></span>
+<span><span class="co">#&gt; 42:    0.0271, 33.5416    0.0422, 34.2376</span></span>
+<span><span class="co">#&gt; 43:                  0                  0</span></span>
+<span><span class="co">#&gt; 44:                                      </span></span>
+<span><span class="co">#&gt; 45:       25404 (7.6%)       25438 (7.6%)</span></span>
+<span><span class="co">#&gt; 46:     209731 (63.0%)     209500 (62.9%)</span></span>
+<span><span class="co">#&gt; 47:       17587 (5.3%)       17359 (5.2%)</span></span>
+<span><span class="co">#&gt; 48:        8284 (2.5%)        8419 (2.5%)</span></span>
+<span><span class="co">#&gt; 49:      45403 (13.6%)      45457 (13.7%)</span></span>
+<span><span class="co">#&gt; 50:       25698 (7.7%)       25833 (7.8%)</span></span>
+<span><span class="co">#&gt; 51:                                      </span></span>
+<span><span class="co">#&gt; 52:     111066 (33.3%)     111115 (33.4%)</span></span>
+<span><span class="co">#&gt; 53:     111021 (33.3%)     110749 (33.3%)</span></span>
+<span><span class="co">#&gt; 54:     111000 (33.3%)     111125 (33.4%)</span></span>
+<span><span class="co">#&gt;             B: Placebo     C: Combination</span></span>
+<span><span class="co">#&gt;                 &lt;char&gt;             &lt;char&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="benchmarking-aet01">Benchmarking AET01<a class="anchor" aria-label="anchor" href="#benchmarking-aet01"></a>
@@ -394,10 +394,10 @@
 <span><span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is</span></span>
 <span><span class="co">#&gt; disabled.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
-<span><span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;bch&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> tern_safety_tab &lt;- dtlg::tern_AET01… 638ms  638ms      1.57   134.5MB     3.14</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> dtlg_safety_tab &lt;- dtlg::AET01_tabl… 180ms  180ms      5.56    37.5MB     0</span></span></code></pre></div>
+<span><span class="co">#&gt;   expression                            min  median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> tern_safety_tab &lt;- dtlg::tern_AE… 333.8ms 333.8ms      3.00   134.5MB     5.99</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> dtlg_safety_tab &lt;- dtlg::AET01_t…  88.9ms  88.9ms     11.2     37.5MB     0</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

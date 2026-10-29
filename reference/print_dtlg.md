@@ -59,11 +59,11 @@ Invisibly returns the printed object.
 ``` r
 calc_stats(dt = adsl, "AGE", treat = "ARM", indent = "  ")[[1]] |>
   print_dtlg()
-#>        stats  A: Drug X B: Placebo C: Combination
-#>  AGE                                             
-#>    n         134        134            132       
-#>    Mean (SD) 33.8 (6.6) 35.4 (7.9)     35.4 (7.7)
-#>    Median    33         35             35        
-#>    Min, Max  21.0, 50.0 21.0, 62.0     20.0, 69.0
-#>    Missing   0          0              0         
+#>        stats   A: Drug X  B: Placebo C: Combination
+#>  AGE                                               
+#>    n         134         134            132        
+#>    Mean (SD) 33.8 (6.55) 35.4 (7.90)    35.4 (7.72)
+#>    Median    33.0        35.0           35.0       
+#>    Min, Max  21, 50      21, 62         20, 69     
+#>    Missing   0           0              0          
 ```

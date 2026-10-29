@@ -15,7 +15,7 @@ calc_stats(
   target_name = target,
   indent = nbsp(n = 4L),
   .total_dt = NULL,
-  pct_dec = 1
+  pct_dec = NULL
 )
 ```
 
@@ -55,7 +55,12 @@ calc_stats(
 
 - pct_dec:
 
-  Decimal places for reported figures.
+  Decimal places for reported figures. The default, `NULL`, derives the
+  decimals of each statistic from the precision of the source values
+  (see `src_dec`): mean and median one more decimal than the source,
+  standard deviation two more, minimum and maximum the same as the
+  source. A number overrides this and is used for every statistic (the
+  previous behaviour).
 
 ## Value
 
@@ -74,14 +79,14 @@ the `target` variable:
 ``` r
 # Calculate summary statistics of a numeric variable, e.g. `AGE`.
 calc_stats(dt = adsl, "AGE", treat = "ARM")[[1]]
-#>                                stats  A: Drug X B: Placebo C: Combination
-#>                               <char>     <char>     <char>         <char>
-#> 1:                               AGE                                     
-#> 2:         &nbsp;&nbsp;&nbsp;&nbsp;n        134        134            132
-#> 3: &nbsp;&nbsp;&nbsp;&nbsp;Mean (SD) 33.8 (6.6) 35.4 (7.9)     35.4 (7.7)
-#> 4:    &nbsp;&nbsp;&nbsp;&nbsp;Median         33         35             35
-#> 5:  &nbsp;&nbsp;&nbsp;&nbsp;Min, Max 21.0, 50.0 21.0, 62.0     20.0, 69.0
-#> 6:   &nbsp;&nbsp;&nbsp;&nbsp;Missing          0          0              0
+#>                                stats   A: Drug X  B: Placebo C: Combination
+#>                               <char>      <char>      <char>         <char>
+#> 1:                               AGE                                       
+#> 2:         &nbsp;&nbsp;&nbsp;&nbsp;n         134         134            132
+#> 3: &nbsp;&nbsp;&nbsp;&nbsp;Mean (SD) 33.8 (6.55) 35.4 (7.90)    35.4 (7.72)
+#> 4:    &nbsp;&nbsp;&nbsp;&nbsp;Median        33.0        35.0           35.0
+#> 5:  &nbsp;&nbsp;&nbsp;&nbsp;Min, Max      21, 50      21, 62         20, 69
+#> 6:   &nbsp;&nbsp;&nbsp;&nbsp;Missing           0           0              0
 
 # Calculate summary statistics of a categorical variable, e.g. `SEX`.
 calc_stats(dt = adsl, "SEX", treat = "ARM")[[1]]
