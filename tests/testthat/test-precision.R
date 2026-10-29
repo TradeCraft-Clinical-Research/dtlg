@@ -105,3 +105,47 @@ test_that("summary_table_by uses one precision per first grouping value across v
   expect_identical(ms$A[3], "7.375 (0.1768)")
   expect_identical(ms$A[4], "7.250 (0.3536)")
 })
+
+test_that("summary_table_by: one rows_by variable takes the precision across the whole data", {
+  dt <- data.frame(
+    AVISIT = rep(c("V1", "V2"), each = 4),
+    ARM = rep(c("A", "A", "B", "B"), 2),
+    AVAL = c(10, 12, 11, 13, 14.5, 16, 15, 17)
+  )
+  res <- summary_table_by(dt, target = "AVAL", treat = "ARM", rows_by = "AVISIT", indent = "")[[1]]
+  ms <- res[stats %in% "Mean (SD)"]
+  # V1 is all whole numbers but V2 has one decimal: both visits get 2 / 3 decimals
+  expect_identical(ms$A[1], "11.00 (1.414)")
+  expect_identical(ms$A[2], "15.25 (1.061)")
+})
+
+test_that("summary_table_by: src_dec overrides the detected precision and pct_dec still wins", {
+  dt <- data.frame(
+    AVISIT = rep(c("V1", "V2"), each = 4),
+    ARM = rep(c("A", "A", "B", "B"), 2),
+    AVAL = c(10, 12, 11, 13, 14, 16, 15, 17)
+  )
+  res <- summary_table_by(dt, target = "AVAL", treat = "ARM", rows_by = "AVISIT", indent = "", src_dec = 1L)[[1]]
+  expect_identical(res[stats %in% "Mean (SD)"]$A[1], "11.00 (1.414)")
+  expect_identical(res[stats %in% "Min, Max"]$A[1], "10.0, 12.0")
+  res <- summary_table_by(dt, target = "AVAL", treat = "ARM", rows_by = "AVISIT", indent = "", pct_dec = 1)[[1]]
+  expect_identical(res[stats %in% "Mean (SD)"]$A[1], "11.0 (1.4)")
+})
+
+test_that("summary_table_by_targets: src_dec gives AVAL and CHG the same precision", {
+  dt <- data.frame(
+    AVISIT = rep(c("V1", "V2"), each = 4),
+    ARM = rep(c("A", "A", "B", "B"), 2),
+    AVAL = c(10.5, 12, 11, 13, 14, 16, 15, 17),
+    CHG = c(0, 1, 2, 3, 4, 5, 6, 7)
+  )
+  res <- summary_table_by_targets(dt, target = c("AVAL", "CHG"), treat = "ARM",
+                                  rows_by = "AVISIT", indent = "", src_dec = 1L)
+  ms <- res[stats %in% "Mean (SD)"]
+  expect_identical(ms$A.AVAL[1], "11.25 (1.061)")
+  expect_identical(ms$A.CHG[1], "0.50 (0.707)")
+  # without src_dec each target uses its own precision (CHG is whole numbers)
+  res2 <- summary_table_by_targets(dt, target = c("AVAL", "CHG"), treat = "ARM",
+                                   rows_by = "AVISIT", indent = "")
+  expect_identical(res2[stats %in% "Mean (SD)"]$A.CHG[1], "0.5 (0.71)")
+})

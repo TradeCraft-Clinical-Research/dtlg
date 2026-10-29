@@ -101,6 +101,12 @@ summary_table <- function(dt,
 #' @inheritParams summary_table
 #' @param rows_by string, grouping variable to split events by.
 #' @param sep character string to separate the terms
+#' @param src_dec Number of decimals of the source values, used when `pct_dec`
+#'   is `NULL`. By default it is derived from the data (see [source_decimals()]):
+#'   across the splits of the first `rows_by` variable when there are several, or
+#'   across the whole of `dt` when there is only one. Pass it to use the precision
+#'   of a wider set of data, e.g. all records of a lab parameter before filtering,
+#'   or the precision of `AVAL` for a change-from-baseline target.
 #'
 #' @returns The same output as [summary_table()] except that folded by variables
 #' indicated in `rows_by`.
@@ -122,23 +128,33 @@ summary_table_by <- function(dt,
                              pct_dec = NULL,
                              treat_order = NULL,
                              skip_absent = TRUE,
-                             sep = ".") {
+                             sep = ".",
+                             src_dec = NULL) {
   dt <- maybe_copy_dt(x = dt)
 
-  # Source precision is taken across all splits of the first grouping variable
-  # (e.g. all visits of one lab parameter), so every visit of a parameter is
-  # shown with the same decimals.
-  src_dec <- NULL
+  # Source precision (only used when `pct_dec` is NULL and the target is numeric):
+  # - `src_dec` given: used for every row;
+  # - several `rows_by`: taken across all splits of the first one (e.g. all visits
+  #   of one lab parameter), so every visit of a parameter has the same decimals;
+  # - one `rows_by` (e.g. just the visit of a single parameter): taken across the
+  #   whole of `dt`.
+  src_dec_rows <- NULL
   dec_by <- NULL
   if (is.null(pct_dec) && is.numeric(dt[[target]])) {
-    dec_by <- tapply(dt[[target]], as.character(dt[[rows_by[1L]]]), source_decimals)
+    if (is.null(src_dec) && length(rows_by) > 1L) {
+      dec_by <- tapply(dt[[target]], as.character(dt[[rows_by[1L]]]), source_decimals)
+    } else if (is.null(src_dec)) {
+      src_dec <- source_decimals(dt[[target]])
+    }
   }
 
   dt <- split(droplevels(dt), by = rows_by, drop = TRUE, sorted = TRUE)
   label <- names(dt)
   if (!is.null(dec_by)) {
     first <- vapply(dt, function(x) as.character(x[[rows_by[1L]]][1L]), character(1L))
-    src_dec <- as.list(unname(dec_by[first]))
+    src_dec_rows <- as.list(unname(dec_by[first]))
+  } else if (!is.null(src_dec)) {
+    src_dec_rows <- rep(list(src_dec), length(dt))
   }
 
   if (length(rows_by) > 1) {
@@ -152,7 +168,7 @@ summary_table_by <- function(dt,
     indent <- paste0(indent, indent)
   }
 
-  summary_split <- if (is.null(src_dec)) {
+  summary_split <- if (is.null(src_dec_rows)) {
     mapply(
       calc_stats,
       dt = dt,
@@ -170,7 +186,7 @@ summary_table_by <- function(dt,
       target_name = label,
       treat = treat,
       indent = indent,
-      src_dec = src_dec,
+      src_dec = src_dec_rows,
       MoreArgs = list(pct_dec = pct_dec)
     )
   }
@@ -214,6 +230,12 @@ summary_table_by <- function(dt,
 #' - `TRUE` will silently ignore them
 #' - `FALSE` will throw an error
 #' @param sep character string to separate the terms
+#' @param src_dec Number of decimals of the source values, used when `pct_dec`
+#'   is `NULL`. By default it is derived from the data (see [source_decimals()]):
+#'   across the splits of the first `rows_by` variable when there are several, or
+#'   across the whole of `dt` when there is only one. Pass it to use the precision
+#'   of a wider set of data, e.g. all records of a lab parameter before filtering,
+#'   or the precision of `AVAL` for a change-from-baseline target.
 #'
 #' @return data.table
 #' @export
@@ -238,7 +260,8 @@ summary_table_by_targets <- function(dt,
                                      pct_dec = NULL,
                                      treat_order = NULL,
                                      skip_absent = TRUE,
-                                     sep = ".") {
+                                     sep = ".",
+                                     src_dec = NULL) {
   .total_dt <- maybe_copy_dt(x = .total_dt)
 
   summary_tables <- mapply(
@@ -253,7 +276,8 @@ summary_table_by_targets <- function(dt,
       pct_dec = pct_dec,
       treat_order = treat_order,
       skip_absent = skip_absent,
-      sep = sep
+      sep = sep,
+      src_dec = src_dec
     )
   )
 
