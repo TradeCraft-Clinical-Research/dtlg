@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,15 @@
       <small>Source: <a href="https://github.com/AscentSoftware/dtlg/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.1" id="dtlg-031">dtlg 0.3.1<a class="anchor" aria-label="anchor" href="#dtlg-031"></a></h2>
+<div class="section level3">
+<h3 id="improvements-0-3-1">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-3-1"></a></h3>
+<ul><li>
+<code><a href="../reference/summary_table_by.html">summary_table_by()</a></code> and <code><a href="../reference/summary_table_by_targets.html">summary_table_by_targets()</a></code> gain <code>src_dec</code> to pass the number of decimals of the source values explicitly (used when <code>pct_dec</code> is <code>NULL</code>), e.g. the precision of <code>AVAL</code> for a change-from-baseline target, or of all records of a lab parameter before any filtering.</li>
+<li>With a single <code>rows_by</code> variable (e.g. the visits of one lab parameter), the source precision is now taken across the whole of <code>dt</code> instead of per visit, so every visit is shown with the same decimals. With several <code>rows_by</code> variables it is still taken per value of the first one (e.g. per parameter).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="dtlg-030">dtlg 0.3.0<a class="anchor" aria-label="anchor" href="#dtlg-030"></a></h2>
 <div class="section level3">

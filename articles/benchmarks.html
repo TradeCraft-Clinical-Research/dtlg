@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">dtlg</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,8 +113,8 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                            min  median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> tern_dmg_tab &lt;- dtlg::tern_summa…   19.5s   19.5s    0.051<span style="text-decoration: underline;">3</span>    8.08GB     2.62</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> dtlg_dmg_tab &lt;- dtlg::summary_ta… 363.8ms 363.8ms    2.75    814.64MB     5.50</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> tern_dmg_tab &lt;- dtlg::tern_summa…   26.7s   26.7s    0.037<span style="text-decoration: underline;">4</span>    8.08GB     1.95</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> dtlg_dmg_tab &lt;- dtlg::summary_ta… 433.7ms 433.7ms    2.31    814.64MB     2.31</span></span>
 <span><span class="fu">dtlg</span><span class="fu">::</span><span class="fu"><a href="../reference/as_dtlg_table.html">as_dtlg_table</a></span><span class="op">(</span>tt <span class="op">=</span> <span class="va">tern_dmg_tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                         stats      A: Drug X     B: Placebo</span></span>
 <span><span class="co">#&gt;                                        &lt;char&gt;         &lt;char&gt;         &lt;char&gt;</span></span>
@@ -394,10 +394,10 @@
 <span><span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is</span></span>
 <span><span class="co">#&gt; disabled.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
-<span><span class="co">#&gt;   expression                            min  median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> tern_safety_tab &lt;- dtlg::tern_AE… 333.8ms 333.8ms      3.00   134.5MB     5.99</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> dtlg_safety_tab &lt;- dtlg::AET01_t…  88.9ms  88.9ms     11.2     37.5MB     0</span></span></code></pre></div>
+<span><span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;bch&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> tern_safety_tab &lt;- dtlg::tern_AET01… 478ms  478ms      2.09   134.5MB     4.19</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> dtlg_safety_tab &lt;- dtlg::AET01_tabl… 134ms  134ms      7.48    37.5MB     0</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

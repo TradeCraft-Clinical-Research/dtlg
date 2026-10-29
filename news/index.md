@@ -1,5 +1,22 @@
 # Changelog
 
+## dtlg 0.3.1
+
+### Improvements
+
+- [`summary_table_by()`](https://AscentSoftware.github.io/dtlg/reference/summary_table_by.md)
+  and
+  [`summary_table_by_targets()`](https://AscentSoftware.github.io/dtlg/reference/summary_table_by_targets.md)
+  gain `src_dec` to pass the number of decimals of the source values
+  explicitly (used when `pct_dec` is `NULL`), e.g. the precision of
+  `AVAL` for a change-from-baseline target, or of all records of a lab
+  parameter before any filtering.
+- With a single `rows_by` variable (e.g. the visits of one lab
+  parameter), the source precision is now taken across the whole of `dt`
+  instead of per visit, so every visit is shown with the same decimals.
+  With several `rows_by` variables it is still taken per value of the
+  first one (e.g. per parameter).
+
 ## dtlg 0.3.0
 
 ### Breaking changes

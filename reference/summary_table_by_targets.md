@@ -16,7 +16,8 @@ summary_table_by_targets(
   pct_dec = NULL,
   treat_order = NULL,
   skip_absent = TRUE,
-  sep = "."
+  sep = ".",
+  src_dec = NULL
 )
 ```
 
@@ -70,6 +71,17 @@ summary_table_by_targets(
 - sep:
 
   character string to separate the terms
+
+- src_dec:
+
+  Number of decimals of the source values, used when `pct_dec` is
+  `NULL`. By default it is derived from the data (see
+  [`source_decimals()`](https://AscentSoftware.github.io/dtlg/reference/source_decimals.md)):
+  across the splits of the first `rows_by` variable when there are
+  several, or across the whole of `dt` when there is only one. Pass it
+  to use the precision of a wider set of data, e.g. all records of a lab
+  parameter before filtering, or the precision of `AVAL` for a
+  change-from-baseline target.
 
 ## Value
 
