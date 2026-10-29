@@ -14,7 +14,8 @@ summary_table_by(
   pct_dec = NULL,
   treat_order = NULL,
   skip_absent = TRUE,
-  sep = "."
+  sep = ".",
+  src_dec = NULL
 )
 }
 \arguments{
@@ -49,6 +50,13 @@ are absent from \code{dt}. Default is \code{TRUE}; \code{FALSE} will throw an er
 case there are missing variables.}
 
 \item{sep}{character string to separate the terms}
+
+\item{src_dec}{Number of decimals of the source values, used when \code{pct_dec}
+is \code{NULL}. By default it is derived from the data (see \code{\link[=source_decimals]{source_decimals()}}):
+across the splits of the first \code{rows_by} variable when there are several, or
+across the whole of \code{dt} when there is only one. Pass it to use the precision
+of a wider set of data, e.g. all records of a lab parameter before filtering,
+or the precision of \code{AVAL} for a change-from-baseline target.}
 }
 \value{
 The same output as \code{\link[=summary_table]{summary_table()}} except that folded by variables
